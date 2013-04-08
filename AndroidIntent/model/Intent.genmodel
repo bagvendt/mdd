@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/AndroidIntent/src" modelPluginID="AndroidIntent"
+    modelName="Intent" importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0"
+    copyrightFields="false">
+  <foreignModel>Intent.ecore</foreignModel>
+  <genPackages prefix="IntentDSL" disposableProviderFactory="true" ecorePackage="Intent.ecore#/">
+    <genClasses ecoreClass="Intent.ecore#//IntentModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Intent.ecore#//IntentModel/intents"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Intent.ecore#//Intent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Intent.ecore#//Intent/extraData"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//Intent/action"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//Intent/dataURI"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//Intent/category"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Intent.ecore#//Intent/returnData"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//Intent/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Intent.ecore#//ExtraData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//ExtraData/type"/>
+    </genClasses>
+    <genClasses ecoreClass="Intent.ecore#//ImplicitIntent"/>
+    <genClasses ecoreClass="Intent.ecore#//BroadCastIntent"/>
+    <genClasses ecoreClass="Intent.ecore#//ExplicitIntent"/>
+    <genClasses ecoreClass="Intent.ecore#//ServiceIntent"/>
+    <genClasses ecoreClass="Intent.ecore#//NamedInstance">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//NamedInstance/name"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

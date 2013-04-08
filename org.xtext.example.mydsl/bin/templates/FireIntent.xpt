@@ -1,0 +1,43 @@
+«IMPORT IntentDSL»
+
+«DEFINE main FOR IntentModel»
+	«FOREACH intents AS i»
+		«FILE i.name+".java"»
+			«EXPAND intent FOR i»
+		«ENDFILE»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE intent FOR BroadCastIntent»
+	Giver det mening?
+«ENDDEFINE»
+
+«DEFINE intent FOR ExplicitIntent»
+	Giver det mening?
+«ENDDEFINE»
+
+«DEFINE intent FOR ImplicitIntent»
+	Intent i = new Intent(«action», Uri.parse("«dataURI»"));
+	«IF extraData != null»
+		«FOREACH extraData AS e»
+			«EXPAND extraData FOR e»
+		«ENDFOREACH»
+		startActivityForResult(i);
+	«ELSE»
+		startActivity(i);
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE intent FOR ServiceIntent»
+	Intent i = new Intent(«action»);
+	«IF extraData != null»
+		«FOREACH extraData AS e»
+			«EXPAND extraData FOR e»
+		«ENDFOREACH»
+	«ENDIF»
+	this.startService(i);
+«ENDDEFINE»
+
+«DEFINE extraData FOR ExtraData»
+	i.putExtra("«name»" , «type» your_var);
+«ENDDEFINE»

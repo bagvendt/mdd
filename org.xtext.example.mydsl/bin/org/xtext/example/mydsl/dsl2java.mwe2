@@ -1,0 +1,58 @@
+module org.xtext.example.mydsl.MyDsl
+
+import org.eclipse.emf.mwe.utils.*
+import org.eclipse.xtext.generator.*
+import org.eclipse.xtext.ui.generator.*
+
+var grammarURI = "classpath:/org/xtext/example/mydsl/MyDsl.xtext"
+var file.extensions = "mydsl"
+var projectName = "org.xtext.example.mydsl"
+var runtimeProject = "../${projectName}"
+
+Workflow {
+	bean = StandaloneSetup {
+		scanClassPath  = true
+		platformUri = "${runtimeProject}/.."
+		registerGeneratedEPackage = "IntentDSL.IntentDSLPackage"
+		registerEcoreFile = "platform:/resource/AndroidIntent/model/Intent.ecore"
+	    registerGenModelFile = "platform:/resource/AndroidIntent/model/Intent.genmodel"
+	}
+	component = org.eclipse.xtext.mwe.Reader {
+		path = "mydsl/"
+		
+		register = MyDslStandaloneSetup {}
+		load = {
+			slot = "intentSlot"
+			type = "IntentModel"
+		}
+	}
+	// Generate Intent Calls
+	component = org.eclipse.xpand2.Generator {
+		metaModel = org.eclipse.xtend.typesystem.emf.EmfMetaModel {
+		metaModelPackage = "IntentDSL.IntentDSLPackage"
+		metaModelFile = "platform:/resource/AndroidIntent/model/Intent.ecore" }
+		metaModel = org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel {}
+		//expand = "templates::DoHtmlReport::main FOREACH tripmodel"
+		expand = "templates::FireIntent::main FOREACH intentSlot"
+		outlet = { path = "model-gen" }
+	}
+	//Generate intent result callbacks
+	component = org.eclipse.xpand2.Generator {
+		metaModel = org.eclipse.xtend.typesystem.emf.EmfMetaModel {
+		metaModelPackage = "IntentDSL.IntentDSLPackage"
+		metaModelFile = "platform:/resource/AndroidIntent/model/Intent.ecore" }
+		metaModel = org.eclipse.xtend.typesystem.emf.EmfRegistryMetaModel {}
+		//expand = "templates::DoHtmlReport::main FOREACH tripmodel"
+		expand = "templates::CatchReturnData::main FOREACH intentSlot"
+		outlet = { path = "model-gen" }
+	}
+	
+	component = org.eclipse.emf.mwe.utils.Writer {
+		modelSlot = "intentSlot"// file extension is important here.
+// ".strip" (so the declared xtext syntax extension) saves in textual syntax
+// ".xmi" or ".ecore" saves in xmi syntax.
+		uri = "platform:/resource/org.xtext.example.mydsl/model-gen/asdd.xmi"
+	}
+	
+	
+}

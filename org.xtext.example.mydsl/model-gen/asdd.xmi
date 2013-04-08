@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<IntentModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="platform:/resource/AndroidIntent/model/Intent.ecore" xsi:schemaLocation="platform:/resource/AndroidIntent/model/Intent.ecore java://IntentDSL.IntentDSLPackage" name="Model">
+  <intents xsi:type="ImplicitIntent" name="Browse To Google" action="Intent.ACTION_VIEW" dataURI="http://google.dk/" category="Internet">
+    <extraData name="var_1" type="String"/>
+    <extraData name="var_2" type="String"/>
+    <returnData name="var_1" type="String"/>
+    <returnData name="var_2" type="String"/>
+  </intents>
+</IntentModel>
