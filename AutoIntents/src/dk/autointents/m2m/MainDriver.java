@@ -3,10 +3,13 @@
  */
 package dk.autointents.m2m;
 
+import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.osgi.framework.Bundle;
 import org.xtext.example.mydsl.MyDslStandaloneSetup;
@@ -16,6 +19,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
@@ -52,6 +57,9 @@ import org.eclipse.ui.*;
 import org.eclipse.ui.internal.Model;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
+import org.emftext.language.java.JavaClasspath;
+import org.emftext.language.java.containers.JavaRoot;
+import org.emftext.language.java.resource.JaMoPPUtil;
 
 import IntentDSL.ExtraData;
 import IntentDSL.IntentDSLPackage;
@@ -211,9 +219,36 @@ public class MainDriver {
 		res.apply(document);
 		cu.getBuffer().setContents(document.get());
 	}
+	public void test() throws IOException {
+		JaMoPPUtil.initialize();
+		URI uri = URI.createURI("src/dk/autointents/m2m/MainDriver.java");
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource resource = resourceSet.createResource(uri);
+		
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put(JavaClasspath.OPTION_USE_LOCAL_CLASSPATH, Boolean.TRUE);
+		
+		resource.load(map);
+		EObject content = resource.getContents().get(0);
+
+		JavaRoot root = (JavaRoot) content;
+		
+		for (EObject lol : root.eContents()) {
+			for (EObject lal : lol.eContents()) {
+				System.out.println(lal.toString());
+			}
+		}
+	}
 
 	public static void main(String[] args) {
-		ModelHelper modelHelper = new MainDriver().LoadDSL();
+		MainDriver driver = new MainDriver();
+		try {
+			driver.test();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ModelHelper modelHelper = driver.LoadDSL();
 		System.out.println(modelHelper.getCategories());
 
 	}
