@@ -126,8 +126,10 @@ public class MainDriver {
 			throws Exception {
 		
 
+		ReferencesHelper ref_help = new ReferencesHelper();
+		ref_help.init();
 		
-		URI uri = URI.createURI("platform:/resource"+cu.getPath().toString());
+		URI uri = URI.createURI("platform:/resource" + cu.getPath().toString());
 
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.createResource(uri);
@@ -157,13 +159,14 @@ public class MainDriver {
 		}
 		ClassMethod theMethod = null;
 		for (Method method : theClass.getMethods()) {
-			System.out.println(method.getName());
 			//System.out.println(method.getClass().toString());
 			theMethod = (ClassMethod) method;
-
 		}
+		TransformTest a = new TransformTest(ref_help);
+		theMethod.getStatements().addAll(a.buildIntentCall());
+		System.out.println(a.buildIntentCall());
 		
-		theMethod.setName("leg");
+
 		try {
 			resource.save(map);
 		} catch (IOException e) {
@@ -171,7 +174,7 @@ public class MainDriver {
 			e.printStackTrace();
 		}
 		
-		// create the descriptive ast rewriter
+		
 		
 	}
 	public void test() throws IOException {
