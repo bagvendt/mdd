@@ -1,5 +1,5 @@
 Model= [{ Type :'ImplicitIntent', 
-	Name : "Browse To Google",
+	Name : "BrowseToGoogle",
 	Action: "Intent.ACTION_VIEW",
 	Category: "Internet",
 	DataURI: "http://google.dk/", 

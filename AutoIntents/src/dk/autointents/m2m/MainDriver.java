@@ -59,6 +59,8 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.emftext.language.java.JavaClasspath;
 import org.emftext.language.java.containers.JavaRoot;
+import org.emftext.language.java.members.ClassMethod;
+import org.emftext.language.java.members.Method;
 import org.emftext.language.java.resource.JaMoPPUtil;
 
 import IntentDSL.ExtraData;
@@ -74,6 +76,7 @@ import com.google.inject.Injector;
 public class MainDriver {
 
 	ModelHelper internalHelper = null;
+	ReferencesHelper ref_help;
 
 	public ModelHelper LoadDSL() {
 		IntentDSLPackage.eINSTANCE.eClass();
@@ -114,130 +117,80 @@ public class MainDriver {
 
 		IntentModel model = (IntentModel) resource.getContents().get(0);
 		internalHelper = new ModelHelper(model);
+		ref_help = new ReferencesHelper();
+		ref_help.init();
 		return internalHelper;
 	}
 
 	public void insertIntent(String intentName, ICompilationUnit cu)
 			throws Exception {
-		IntentDSL.Intent intent = internalHelper.getIntentByName(intentName);
-		ASTParser parser = ASTParser.newParser(AST.JLS4);
-		parser.setSource(cu);
-		parser.setResolveBindings(false);
-		CompilationUnit astRoot = (CompilationUnit) parser.createAST(null);
-		AST ast = astRoot.getAST();
-		// create the descriptive ast rewriter
-		ASTRewrite rewrite = ASTRewrite.create(ast);
-
-		// get the block node that contains the statements in the method body
-		TypeDeclaration typeDecl = (TypeDeclaration) astRoot.types().get(0);
-		MethodDeclaration methodDecl = typeDecl.getMethods()[0];
 		
 
-		Block block = methodDecl.getBody();
+		
+		URI uri = URI.createURI("platform:/resource"+cu.getPath().toString());
 
-		// note: AST is not modified by this
-		ListRewrite listRewrite = rewrite.getListRewrite(block,
-				Block.STATEMENTS_PROPERTY);
-
-		// Intent i = new Intent(ACTION);
-		StringLiteral action = ast.newStringLiteral();
-		action.setLiteralValue(intent.getAction());
-
-		VariableDeclarationFragment vdf = ast.newVariableDeclarationFragment();
-		vdf.setName(ast.newSimpleName("i"));
-		VariableDeclarationStatement vds = ast
-				.newVariableDeclarationStatement(vdf);
-		vds.setType(ast.newSimpleType(ast.newSimpleName("Intent")));
-		ClassInstanceCreation cc = ast.newClassInstanceCreation();
-		cc.arguments().add(action);
-		cc.setType(ast.newSimpleType(ast.newSimpleName("Intent")));
-		vdf.setInitializer(cc);
-		listRewrite.insertLast(vds, null);
-
-		// i.setData(URL);
-		StringLiteral data = ast.newStringLiteral();
-		data.setLiteralValue(intent.getDataURI());
-		MethodInvocation dataMeth = ast.newMethodInvocation();
-		SimpleName intentVariableName = ast.newSimpleName("i");
-		dataMeth.setExpression(intentVariableName);
-		dataMeth.setName(ast.newSimpleName("setData"));
-		dataMeth.arguments().add(data);
-		Statement dataState = ast.newExpressionStatement(dataMeth);
-		listRewrite.insertLast(dataState, null);
-
-		// i.putExtra("Name", "Object");
-		for (ExtraData extraData : intent.getExtraData()) {
-
-			StringLiteral extraName = ast.newStringLiteral();
-			extraName.setLiteralValue(extraData.getName());
-
-			SimpleName extraType = ast.newSimpleName(extraData.getType()
-					.toUpperCase());
-
-			MethodInvocation extraMeth = ast.newMethodInvocation();
-			SimpleName intentVariableName1 = ast.newSimpleName("i");
-			extraMeth.setExpression(intentVariableName1);
-			extraMeth.setName(ast.newSimpleName("putExtra"));
-			extraMeth.arguments().add(extraName);
-			extraMeth.arguments().add(extraType);
-			Statement extraState = ast.newExpressionStatement(extraMeth);
-			listRewrite.insertLast(extraState, null);
-		}
-
-		if (intent.getExtraData().isEmpty()) {
-			// startActivity(i);
-			SimpleName expression = ast.newSimpleName("i");
-
-			MethodInvocation startActivityMeth = ast.newMethodInvocation();
-			startActivityMeth.setName(ast.newSimpleName("startActivity"));
-			startActivityMeth.arguments().add(expression);
-			Statement startActivityStatement = ast
-					.newExpressionStatement(startActivityMeth);
-			listRewrite.insertLast(startActivityStatement, null);
-		} else {
-			// startActivity(i);
-			SimpleName expression = ast.newSimpleName("i");
-			SimpleName expression1 = ast.newSimpleName("REQUEST_CODE");
-
-			MethodInvocation startActivityMeth = ast.newMethodInvocation();
-			startActivityMeth.setName(ast
-					.newSimpleName("startActivityForResult"));
-			startActivityMeth.arguments().add(expression);
-			startActivityMeth.arguments().add(expression1);
-			Statement startActivityStatement = ast
-					.newExpressionStatement(startActivityMeth);
-			listRewrite.insertLast(startActivityStatement, null);
-
-		}
-
-		// evaluate the text edits corresponding to the described changes. AST
-		// and CU still unmodified.
-		TextEdit res = rewrite.rewriteAST();
-
-		// apply the text edits to the compilation unit
-		Document document = new Document(cu.getSource());
-		res.apply(document);
-		cu.getBuffer().setContents(document.get());
-	}
-	public void test() throws IOException {
-		JaMoPPUtil.initialize();
-		URI uri = URI.createURI("src/dk/autointents/m2m/MainDriver.java");
 		ResourceSet resourceSet = new ResourceSetImpl();
 		Resource resource = resourceSet.createResource(uri);
 		
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put(JavaClasspath.OPTION_USE_LOCAL_CLASSPATH, Boolean.TRUE);
 		
-		resource.load(map);
+		try {
+			resource.load(map);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		EObject content = resource.getContents().get(0);
+		
 
 		JavaRoot root = (JavaRoot) content;
 		
+		org.emftext.language.java.classifiers.Class theClass = null;
+		
 		for (EObject lol : root.eContents()) {
-			for (EObject lal : lol.eContents()) {
-				System.out.println(lal.toString());
+			
+			if (lol instanceof org.emftext.language.java.classifiers.Class) {
+				theClass = (org.emftext.language.java.classifiers.Class) lol;
 			}
 		}
+		ClassMethod theMethod = null;
+		for (Method method : theClass.getMethods()) {
+			System.out.println(method.getName());
+			//System.out.println(method.getClass().toString());
+			theMethod = (ClassMethod) method;
+
+		}
+		
+		theMethod.setName("leg");
+		try {
+			resource.save(map);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// create the descriptive ast rewriter
+		
+	}
+	public void test() throws IOException {
+		JaMoPPUtil.initialize();
+//		Bundle bundle = Platform.getBundle("AutoIntents");
+//		URL fileURL = bundle.getEntry("res/IntentDemo.java");
+		
+		
+		
+		
+//		ResourceSet resourceSet = new ResourceSetImpl();
+//		Resource resource = resourceSet.createResource(uri);
+//		
+//		Map<Object, Object> map = new HashMap<Object, Object>();
+//		map.put(JavaClasspath.OPTION_USE_LOCAL_CLASSPATH, Boolean.TRUE);
+//		
+//		resource.load(map);
+
+		
 	}
 
 	public static void main(String[] args) {
@@ -248,8 +201,9 @@ public class MainDriver {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ModelHelper modelHelper = driver.LoadDSL();
-		System.out.println(modelHelper.getCategories());
+		//	ModelHelper modelHelper = driver.LoadDSL();
+		//TransformTest tt = new TransformTest();
+		//tt.invoke(modelHelper.getIntentByName("BrowseToGoogle"));
 
 	}
 }

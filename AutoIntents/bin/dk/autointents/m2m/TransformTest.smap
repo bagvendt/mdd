@@ -1,0 +1,13 @@
+SMAP
+TransformTest.java
+Xtend
+*S Xtend
+*F
++ 0 TransformTest.xtend
+src/dk/autointents/m2m/TransformTest.xtend
+*L
+7:11,2
+8:13,2
+9:15,2
+8:17
+*E
