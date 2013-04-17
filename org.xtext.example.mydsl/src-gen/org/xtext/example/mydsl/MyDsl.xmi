@@ -97,9 +97,6 @@
             <elements xsi:type="xtext:Keyword" value="DataExtra"/>
             <elements xsi:type="xtext:Keyword" value=":"/>
             <elements xsi:type="xtext:Keyword" value="["/>
-            <elements xsi:type="xtext:Assignment" feature="extraData" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.3"/>
-            </elements>
             <elements xsi:type="xtext:Group" cardinality="*">
               <elements xsi:type="xtext:Keyword" value=","/>
               <elements xsi:type="xtext:Assignment" feature="extraData" operator="+=">
@@ -113,9 +110,6 @@
             <elements xsi:type="xtext:Keyword" value="ReturnData"/>
             <elements xsi:type="xtext:Keyword" value=":"/>
             <elements xsi:type="xtext:Keyword" value="["/>
-            <elements xsi:type="xtext:Assignment" feature="returnData" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.3"/>
-            </elements>
             <elements xsi:type="xtext:Group" cardinality="*">
               <elements xsi:type="xtext:Keyword" value=","/>
               <elements xsi:type="xtext:Assignment" feature="returnData" operator="+=">

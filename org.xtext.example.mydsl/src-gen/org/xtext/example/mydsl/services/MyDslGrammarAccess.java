@@ -142,25 +142,21 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cDataExtraKeyword_4_5_0 = (Keyword)cGroup_4_5.eContents().get(0);
 		private final Keyword cColonKeyword_4_5_1 = (Keyword)cGroup_4_5.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_4_5_2 = (Keyword)cGroup_4_5.eContents().get(2);
-		private final Assignment cExtraDataAssignment_4_5_3 = (Assignment)cGroup_4_5.eContents().get(3);
-		private final RuleCall cExtraDataExtraDataParserRuleCall_4_5_3_0 = (RuleCall)cExtraDataAssignment_4_5_3.eContents().get(0);
-		private final Group cGroup_4_5_4 = (Group)cGroup_4_5.eContents().get(4);
-		private final Keyword cCommaKeyword_4_5_4_0 = (Keyword)cGroup_4_5_4.eContents().get(0);
-		private final Assignment cExtraDataAssignment_4_5_4_1 = (Assignment)cGroup_4_5_4.eContents().get(1);
-		private final RuleCall cExtraDataExtraDataParserRuleCall_4_5_4_1_0 = (RuleCall)cExtraDataAssignment_4_5_4_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4_5_5 = (Keyword)cGroup_4_5.eContents().get(5);
-		private final Keyword cCommaKeyword_4_5_6 = (Keyword)cGroup_4_5.eContents().get(6);
+		private final Group cGroup_4_5_3 = (Group)cGroup_4_5.eContents().get(3);
+		private final Keyword cCommaKeyword_4_5_3_0 = (Keyword)cGroup_4_5_3.eContents().get(0);
+		private final Assignment cExtraDataAssignment_4_5_3_1 = (Assignment)cGroup_4_5_3.eContents().get(1);
+		private final RuleCall cExtraDataExtraDataParserRuleCall_4_5_3_1_0 = (RuleCall)cExtraDataAssignment_4_5_3_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_5_4 = (Keyword)cGroup_4_5.eContents().get(4);
+		private final Keyword cCommaKeyword_4_5_5 = (Keyword)cGroup_4_5.eContents().get(5);
 		private final Group cGroup_4_6 = (Group)cGroup_4.eContents().get(6);
 		private final Keyword cReturnDataKeyword_4_6_0 = (Keyword)cGroup_4_6.eContents().get(0);
 		private final Keyword cColonKeyword_4_6_1 = (Keyword)cGroup_4_6.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_4_6_2 = (Keyword)cGroup_4_6.eContents().get(2);
-		private final Assignment cReturnDataAssignment_4_6_3 = (Assignment)cGroup_4_6.eContents().get(3);
-		private final RuleCall cReturnDataExtraDataParserRuleCall_4_6_3_0 = (RuleCall)cReturnDataAssignment_4_6_3.eContents().get(0);
-		private final Group cGroup_4_6_4 = (Group)cGroup_4_6.eContents().get(4);
-		private final Keyword cCommaKeyword_4_6_4_0 = (Keyword)cGroup_4_6_4.eContents().get(0);
-		private final Assignment cReturnDataAssignment_4_6_4_1 = (Assignment)cGroup_4_6_4.eContents().get(1);
-		private final RuleCall cReturnDataExtraDataParserRuleCall_4_6_4_1_0 = (RuleCall)cReturnDataAssignment_4_6_4_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4_6_5 = (Keyword)cGroup_4_6.eContents().get(5);
+		private final Group cGroup_4_6_3 = (Group)cGroup_4_6.eContents().get(3);
+		private final Keyword cCommaKeyword_4_6_3_0 = (Keyword)cGroup_4_6_3.eContents().get(0);
+		private final Assignment cReturnDataAssignment_4_6_3_1 = (Assignment)cGroup_4_6_3.eContents().get(1);
+		private final RuleCall cReturnDataExtraDataParserRuleCall_4_6_3_1_0 = (RuleCall)cReturnDataAssignment_4_6_3_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_6_4 = (Keyword)cGroup_4_6.eContents().get(4);
 		
 		//Intent:
 		//
@@ -168,18 +164,18 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
 		//
-		//	",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]"
+		//	",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" ("," extraData+=ExtraData)* "]" ",")? ("ReturnData" ":"
 		//
-		//	",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]")?);
+		//	"[" ("," returnData+=ExtraData)* "]")?);
 		public ParserRule getRule() { return rule; }
 
 		//"Type" ":" (ExplicitIntent | ImplicitIntent | BroadcastIntent | ServiceIntent) "," (("Name" ":" name=EString ",")
 		//
 		//("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
 		//
-		//",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]"
+		//",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" ("," extraData+=ExtraData)* "]" ",")? ("ReturnData" ":"
 		//
-		//",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]")?)
+		//"[" ("," returnData+=ExtraData)* "]")?)
 		public Group getGroup() { return cGroup; }
 
 		//"Type"
@@ -208,9 +204,9 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("Name" ":" name=EString ",") ("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category"
 		//
-		//":" metaCategory=EString ",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData (","
+		//":" metaCategory=EString ",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" ("," extraData+=ExtraData)* "]"
 		//
-		//extraData+=ExtraData)* "]" ",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]")?
+		//",")? ("ReturnData" ":" "[" ("," returnData+=ExtraData)* "]")?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"Name" ":" name=EString ","
@@ -303,7 +299,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//","
 		public Keyword getCommaKeyword_4_4_3() { return cCommaKeyword_4_4_3; }
 
-		//("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]" ",")?
+		//("DataExtra" ":" "[" ("," extraData+=ExtraData)* "]" ",")?
 		public Group getGroup_4_5() { return cGroup_4_5; }
 
 		//"DataExtra"
@@ -315,31 +311,25 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4_5_2() { return cLeftSquareBracketKeyword_4_5_2; }
 
-		//extraData+=ExtraData
-		public Assignment getExtraDataAssignment_4_5_3() { return cExtraDataAssignment_4_5_3; }
-
-		//ExtraData
-		public RuleCall getExtraDataExtraDataParserRuleCall_4_5_3_0() { return cExtraDataExtraDataParserRuleCall_4_5_3_0; }
-
 		//("," extraData+=ExtraData)*
-		public Group getGroup_4_5_4() { return cGroup_4_5_4; }
+		public Group getGroup_4_5_3() { return cGroup_4_5_3; }
 
 		//","
-		public Keyword getCommaKeyword_4_5_4_0() { return cCommaKeyword_4_5_4_0; }
+		public Keyword getCommaKeyword_4_5_3_0() { return cCommaKeyword_4_5_3_0; }
 
 		//extraData+=ExtraData
-		public Assignment getExtraDataAssignment_4_5_4_1() { return cExtraDataAssignment_4_5_4_1; }
+		public Assignment getExtraDataAssignment_4_5_3_1() { return cExtraDataAssignment_4_5_3_1; }
 
 		//ExtraData
-		public RuleCall getExtraDataExtraDataParserRuleCall_4_5_4_1_0() { return cExtraDataExtraDataParserRuleCall_4_5_4_1_0; }
+		public RuleCall getExtraDataExtraDataParserRuleCall_4_5_3_1_0() { return cExtraDataExtraDataParserRuleCall_4_5_3_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_4_5_5() { return cRightSquareBracketKeyword_4_5_5; }
+		public Keyword getRightSquareBracketKeyword_4_5_4() { return cRightSquareBracketKeyword_4_5_4; }
 
 		//","
-		public Keyword getCommaKeyword_4_5_6() { return cCommaKeyword_4_5_6; }
+		public Keyword getCommaKeyword_4_5_5() { return cCommaKeyword_4_5_5; }
 
-		//("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]")?
+		//("ReturnData" ":" "[" ("," returnData+=ExtraData)* "]")?
 		public Group getGroup_4_6() { return cGroup_4_6; }
 
 		//"ReturnData"
@@ -351,26 +341,20 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4_6_2() { return cLeftSquareBracketKeyword_4_6_2; }
 
-		//returnData+=ExtraData
-		public Assignment getReturnDataAssignment_4_6_3() { return cReturnDataAssignment_4_6_3; }
-
-		//ExtraData
-		public RuleCall getReturnDataExtraDataParserRuleCall_4_6_3_0() { return cReturnDataExtraDataParserRuleCall_4_6_3_0; }
-
 		//("," returnData+=ExtraData)*
-		public Group getGroup_4_6_4() { return cGroup_4_6_4; }
+		public Group getGroup_4_6_3() { return cGroup_4_6_3; }
 
 		//","
-		public Keyword getCommaKeyword_4_6_4_0() { return cCommaKeyword_4_6_4_0; }
+		public Keyword getCommaKeyword_4_6_3_0() { return cCommaKeyword_4_6_3_0; }
 
 		//returnData+=ExtraData
-		public Assignment getReturnDataAssignment_4_6_4_1() { return cReturnDataAssignment_4_6_4_1; }
+		public Assignment getReturnDataAssignment_4_6_3_1() { return cReturnDataAssignment_4_6_3_1; }
 
 		//ExtraData
-		public RuleCall getReturnDataExtraDataParserRuleCall_4_6_4_1_0() { return cReturnDataExtraDataParserRuleCall_4_6_4_1_0; }
+		public RuleCall getReturnDataExtraDataParserRuleCall_4_6_3_1_0() { return cReturnDataExtraDataParserRuleCall_4_6_3_1_0; }
 
 		//"]"
-		public Keyword getRightSquareBracketKeyword_4_6_5() { return cRightSquareBracketKeyword_4_6_5; }
+		public Keyword getRightSquareBracketKeyword_4_6_4() { return cRightSquareBracketKeyword_4_6_4; }
 	}
 
 	public class EStringElements extends AbstractParserRuleElementFinder {
@@ -703,9 +687,9 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
 	//
-	//	",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]"
+	//	",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" ("," extraData+=ExtraData)* "]" ",")? ("ReturnData" ":"
 	//
-	//	",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]")?);
+	//	"[" ("," returnData+=ExtraData)* "]")?);
 	public IntentElements getIntentAccess() {
 		return (pIntent != null) ? pIntent : (pIntent = new IntentElements());
 	}

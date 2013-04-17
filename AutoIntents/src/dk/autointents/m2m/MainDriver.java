@@ -58,6 +58,7 @@ import org.eclipse.ui.internal.Model;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
+import IntentDSL.BroadCastIntent;
 /*
 import org.emftext.language.java.JavaClasspath;
 import org.emftext.language.java.containers.JavaRoot;

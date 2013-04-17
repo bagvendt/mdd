@@ -401,70 +401,56 @@ ruleIntent returns [EObject current=null]
     {
     	newLeafNode(otherlv_29, grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_5_2());
     }
+(	otherlv_30=',' 
+    {
+    	newLeafNode(otherlv_30, grammarAccess.getIntentAccess().getCommaKeyword_4_5_3_0());
+    }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_5_3_0()); 
+	        newCompositeNode(grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_5_3_1_0()); 
 	    }
-		lv_extraData_30_0=ruleExtraData		{
+		lv_extraData_31_0=ruleExtraData		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getIntentRule());
 	        }
        		add(
        			$current, 
        			"extraData",
-        		lv_extraData_30_0, 
+        		lv_extraData_31_0, 
         		"ExtraData");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_31=',' 
+))*	otherlv_32=']' 
     {
-    	newLeafNode(otherlv_31, grammarAccess.getIntentAccess().getCommaKeyword_4_5_4_0());
+    	newLeafNode(otherlv_32, grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_5_4());
+    }
+	otherlv_33=',' 
+    {
+    	newLeafNode(otherlv_33, grammarAccess.getIntentAccess().getCommaKeyword_4_5_5());
+    }
+)?(	otherlv_34='ReturnData' 
+    {
+    	newLeafNode(otherlv_34, grammarAccess.getIntentAccess().getReturnDataKeyword_4_6_0());
+    }
+	otherlv_35=':' 
+    {
+    	newLeafNode(otherlv_35, grammarAccess.getIntentAccess().getColonKeyword_4_6_1());
+    }
+	otherlv_36='[' 
+    {
+    	newLeafNode(otherlv_36, grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_6_2());
+    }
+(	otherlv_37=',' 
+    {
+    	newLeafNode(otherlv_37, grammarAccess.getIntentAccess().getCommaKeyword_4_6_3_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_5_4_1_0()); 
-	    }
-		lv_extraData_32_0=ruleExtraData		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getIntentRule());
-	        }
-       		add(
-       			$current, 
-       			"extraData",
-        		lv_extraData_32_0, 
-        		"ExtraData");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*	otherlv_33=']' 
-    {
-    	newLeafNode(otherlv_33, grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_5_5());
-    }
-	otherlv_34=',' 
-    {
-    	newLeafNode(otherlv_34, grammarAccess.getIntentAccess().getCommaKeyword_4_5_6());
-    }
-)?(	otherlv_35='ReturnData' 
-    {
-    	newLeafNode(otherlv_35, grammarAccess.getIntentAccess().getReturnDataKeyword_4_6_0());
-    }
-	otherlv_36=':' 
-    {
-    	newLeafNode(otherlv_36, grammarAccess.getIntentAccess().getColonKeyword_4_6_1());
-    }
-	otherlv_37='[' 
-    {
-    	newLeafNode(otherlv_37, grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_6_2());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_6_3_0()); 
+	        newCompositeNode(grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_6_3_1_0()); 
 	    }
 		lv_returnData_38_0=ruleExtraData		{
 	        if ($current==null) {
@@ -479,31 +465,9 @@ ruleIntent returns [EObject current=null]
 	    }
 
 )
-)(	otherlv_39=',' 
+))*	otherlv_39=']' 
     {
-    	newLeafNode(otherlv_39, grammarAccess.getIntentAccess().getCommaKeyword_4_6_4_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_6_4_1_0()); 
-	    }
-		lv_returnData_40_0=ruleExtraData		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getIntentRule());
-	        }
-       		add(
-       			$current, 
-       			"returnData",
-        		lv_returnData_40_0, 
-        		"ExtraData");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*	otherlv_41=']' 
-    {
-    	newLeafNode(otherlv_41, grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_6_5());
+    	newLeafNode(otherlv_39, grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_6_4());
     }
 )?))
 ;

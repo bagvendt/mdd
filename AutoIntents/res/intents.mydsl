@@ -3,11 +3,29 @@ Model= [{ Type :'ImplicitIntent',
 	Action: "android.intent.action.VIEW",
 	Meta-Category: "Internet",
 	DataURI: "YOUR URL GOES HERE",
-	ReturnData: [ { Name: "hello", Type:boolean}]},
+	DataExtra: [],
+	ReturnData: []
+	},
 	{ Type :'ImplicitIntent', 
-	Name : "Browse to webpage1",
-	Action: "android.intent.action.VIEW",
+	Name : "Send an email",
+	Action: "android.intent.action.ACTION_SEND",
 	Meta-Category: "Internet",
-	DataURI: "YOUR URL GOES HERE",
+	DataExtra: [{Name: "android.intent.extra.EMAIL", Type:String},{Name: "android.intent.extra.SUBJECT", Type:String},{Name: "android.intent.extra.EXTRA_TEXT", Type:String}],
+	ReturnData: []
+	},
+	{ Type :'ImplicitIntent', 
+	Name : "Dail a phone number",
+	Action: "android.intent.action.CALL",
+	Meta-Category: "Phone",
+	DataURI: "YOUR PHONENUMBER GOES HERE (tel: + number)",
+	DataExtra: [],
+	ReturnData: []
+	},
+	{ Type :'BroadcastIntent', 
+	Name : "Play/Pause Music player",
+	Action: "com.android.music.musicservicecommand",
+	Meta-Category: "Media",
+	DataExtra: [{ Name: "command", Type:String}],
+	ReturnData: []
 	}
-]
+	]
