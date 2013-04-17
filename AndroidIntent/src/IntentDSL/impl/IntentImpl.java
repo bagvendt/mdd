@@ -34,6 +34,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link IntentDSL.impl.IntentImpl#getDataURI <em>Data URI</em>}</li>
  *   <li>{@link IntentDSL.impl.IntentImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link IntentDSL.impl.IntentImpl#getReturnData <em>Return Data</em>}</li>
+ *   <li>{@link IntentDSL.impl.IntentImpl#getType <em>Type</em>}</li>
+ *   <li>{@link IntentDSL.impl.IntentImpl#getMetaCategory <em>Meta Category</em>}</li>
  * </ul>
  * </p>
  *
@@ -119,6 +121,46 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 	 * @ordered
 	 */
 	protected EList<ExtraData> returnData;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String type = TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMetaCategory() <em>Meta Category</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetaCategory()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String META_CATEGORY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMetaCategory() <em>Meta Category</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetaCategory()
+	 * @generated
+	 * @ordered
+	 */
+	protected String metaCategory = META_CATEGORY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -231,6 +273,48 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IntentDSLPackage.INTENT__TYPE, oldType, type));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getMetaCategory() {
+		return metaCategory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetaCategory(String newMetaCategory) {
+		String oldMetaCategory = metaCategory;
+		metaCategory = newMetaCategory;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IntentDSLPackage.INTENT__META_CATEGORY, oldMetaCategory, metaCategory));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -260,6 +344,10 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 				return getCategory();
 			case IntentDSLPackage.INTENT__RETURN_DATA:
 				return getReturnData();
+			case IntentDSLPackage.INTENT__TYPE:
+				return getType();
+			case IntentDSLPackage.INTENT__META_CATEGORY:
+				return getMetaCategory();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -290,6 +378,12 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 				getReturnData().clear();
 				getReturnData().addAll((Collection<? extends ExtraData>)newValue);
 				return;
+			case IntentDSLPackage.INTENT__TYPE:
+				setType((String)newValue);
+				return;
+			case IntentDSLPackage.INTENT__META_CATEGORY:
+				setMetaCategory((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -317,6 +411,12 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 			case IntentDSLPackage.INTENT__RETURN_DATA:
 				getReturnData().clear();
 				return;
+			case IntentDSLPackage.INTENT__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
+			case IntentDSLPackage.INTENT__META_CATEGORY:
+				setMetaCategory(META_CATEGORY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -339,6 +439,10 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 				return CATEGORY_EDEFAULT == null ? category != null : !CATEGORY_EDEFAULT.equals(category);
 			case IntentDSLPackage.INTENT__RETURN_DATA:
 				return returnData != null && !returnData.isEmpty();
+			case IntentDSLPackage.INTENT__TYPE:
+				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case IntentDSLPackage.INTENT__META_CATEGORY:
+				return META_CATEGORY_EDEFAULT == null ? metaCategory != null : !META_CATEGORY_EDEFAULT.equals(metaCategory);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -359,6 +463,10 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 		result.append(dataURI);
 		result.append(", category: ");
 		result.append(category);
+		result.append(", type: ");
+		result.append(type);
+		result.append(", metaCategory: ");
+		result.append(metaCategory);
 		result.append(')');
 		return result.toString();
 	}

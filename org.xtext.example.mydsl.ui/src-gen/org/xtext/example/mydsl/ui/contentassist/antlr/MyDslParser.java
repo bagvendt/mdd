@@ -39,6 +39,7 @@ public class MyDslParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getIntentAccess().getAlternatives_2(), "rule__Intent__Alternatives_2");
 					put(grammarAccess.getEStringAccess().getAlternatives(), "rule__EString__Alternatives");
+					put(grammarAccess.getSimpleTypeEnumAccess().getAlternatives(), "rule__SimpleTypeEnum__Alternatives");
 					put(grammarAccess.getIntentModelAccess().getGroup(), "rule__IntentModel__Group__0");
 					put(grammarAccess.getIntentModelAccess().getGroup_4(), "rule__IntentModel__Group_4__0");
 					put(grammarAccess.getIntentModelAccess().getGroup_4_2(), "rule__IntentModel__Group_4_2__0");
@@ -49,12 +50,13 @@ public class MyDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIntentAccess().getGroup_4_2(), "rule__Intent__Group_4_2__0");
 					put(grammarAccess.getIntentAccess().getGroup_4_3(), "rule__Intent__Group_4_3__0");
 					put(grammarAccess.getIntentAccess().getGroup_4_4(), "rule__Intent__Group_4_4__0");
-					put(grammarAccess.getIntentAccess().getGroup_4_4_4(), "rule__Intent__Group_4_4_4__0");
 					put(grammarAccess.getIntentAccess().getGroup_4_5(), "rule__Intent__Group_4_5__0");
 					put(grammarAccess.getIntentAccess().getGroup_4_5_4(), "rule__Intent__Group_4_5_4__0");
+					put(grammarAccess.getIntentAccess().getGroup_4_6(), "rule__Intent__Group_4_6__0");
+					put(grammarAccess.getIntentAccess().getGroup_4_6_4(), "rule__Intent__Group_4_6_4__0");
 					put(grammarAccess.getExtraDataAccess().getGroup(), "rule__ExtraData__Group__0");
 					put(grammarAccess.getExtraDataAccess().getGroup_2(), "rule__ExtraData__Group_2__0");
-					put(grammarAccess.getExtraDataAccess().getGroup_3(), "rule__ExtraData__Group_3__0");
+					put(grammarAccess.getExtraDataAccess().getGroup_4(), "rule__ExtraData__Group_4__0");
 					put(grammarAccess.getExplicitIntentAccess().getGroup(), "rule__ExplicitIntent__Group__0");
 					put(grammarAccess.getImplicitIntentAccess().getGroup(), "rule__ImplicitIntent__Group__0");
 					put(grammarAccess.getBroadcastIntentAccess().getGroup(), "rule__BroadcastIntent__Group__0");
@@ -65,13 +67,14 @@ public class MyDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIntentAccess().getNameAssignment_4_0_2(), "rule__Intent__NameAssignment_4_0_2");
 					put(grammarAccess.getIntentAccess().getActionAssignment_4_1_2(), "rule__Intent__ActionAssignment_4_1_2");
 					put(grammarAccess.getIntentAccess().getCategoryAssignment_4_2_2(), "rule__Intent__CategoryAssignment_4_2_2");
-					put(grammarAccess.getIntentAccess().getDataURIAssignment_4_3_2(), "rule__Intent__DataURIAssignment_4_3_2");
-					put(grammarAccess.getIntentAccess().getExtraDataAssignment_4_4_3(), "rule__Intent__ExtraDataAssignment_4_4_3");
-					put(grammarAccess.getIntentAccess().getExtraDataAssignment_4_4_4_1(), "rule__Intent__ExtraDataAssignment_4_4_4_1");
-					put(grammarAccess.getIntentAccess().getReturnDataAssignment_4_5_3(), "rule__Intent__ReturnDataAssignment_4_5_3");
-					put(grammarAccess.getIntentAccess().getReturnDataAssignment_4_5_4_1(), "rule__Intent__ReturnDataAssignment_4_5_4_1");
+					put(grammarAccess.getIntentAccess().getMetaCategoryAssignment_4_3_2(), "rule__Intent__MetaCategoryAssignment_4_3_2");
+					put(grammarAccess.getIntentAccess().getDataURIAssignment_4_4_2(), "rule__Intent__DataURIAssignment_4_4_2");
+					put(grammarAccess.getIntentAccess().getExtraDataAssignment_4_5_3(), "rule__Intent__ExtraDataAssignment_4_5_3");
+					put(grammarAccess.getIntentAccess().getExtraDataAssignment_4_5_4_1(), "rule__Intent__ExtraDataAssignment_4_5_4_1");
+					put(grammarAccess.getIntentAccess().getReturnDataAssignment_4_6_3(), "rule__Intent__ReturnDataAssignment_4_6_3");
+					put(grammarAccess.getIntentAccess().getReturnDataAssignment_4_6_4_1(), "rule__Intent__ReturnDataAssignment_4_6_4_1");
 					put(grammarAccess.getExtraDataAccess().getNameAssignment_2_2(), "rule__ExtraData__NameAssignment_2_2");
-					put(grammarAccess.getExtraDataAccess().getTypeAssignment_3_2(), "rule__ExtraData__TypeAssignment_3_2");
+					put(grammarAccess.getExtraDataAccess().getTypeAssignment_4_2(), "rule__ExtraData__TypeAssignment_4_2");
 				}
 			};
 		}

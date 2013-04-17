@@ -47,6 +47,7 @@ protected class ThisRootNode extends RootToken {
 /************ begin Rule IntentModel ****************
  *
  * IntentModel:
+ * 
  * 	{IntentModel} name="Model" "=" "[" ("{" intents+=Intent ("," intents+=Intent)* "}")? "]";
  *
  **/
@@ -420,17 +421,24 @@ protected class IntentModel_RightSquareBracketKeyword_5 extends KeywordToken  {
 /************ begin Rule Intent ****************
  *
  * Intent:
+ * 
  * 	"Type" ":" (ExplicitIntent | ImplicitIntent | BroadcastIntent | ServiceIntent) "," (("Name" ":" name=EString ",")
- * 	("Action" ":" action=EString ",") ("Category" ":" category=EString ",") ("DataURI" ":" dataURI=EString ",")
- * 	("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]" ",")? ("ReturnData" ":" "["
- * 	returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?);
+ * 
+ * 	("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
+ * 
+ * 	",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]"
+ * 
+ * 	",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?);
  *
  **/
 
 // "Type" ":" (ExplicitIntent | ImplicitIntent | BroadcastIntent | ServiceIntent) "," (("Name" ":" name=EString ",")
-// ("Action" ":" action=EString ",") ("Category" ":" category=EString ",") ("DataURI" ":" dataURI=EString ",")
-// ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]" ",")? ("ReturnData" ":" "["
-// returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?)
+// 
+// ("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
+// 
+// ",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]"
+// 
+// ",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?)
 protected class Intent_Group extends GroupToken {
 	
 	public Intent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -701,9 +709,11 @@ protected class Intent_CommaKeyword_3 extends KeywordToken  {
 
 }
 
-// ("Name" ":" name=EString ",") ("Action" ":" action=EString ",") ("Category" ":" category=EString ",") ("DataURI" ":"
-// dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]" ",")? ("ReturnData" ":"
-// "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?
+// ("Name" ":" name=EString ",") ("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category"
+// 
+// ":" metaCategory=EString ",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData (","
+// 
+// extraData+=ExtraData)* "]" ",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?
 protected class Intent_Group_4 extends GroupToken {
 	
 	public Intent_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -718,9 +728,9 @@ protected class Intent_Group_4 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Intent_Group_4_5(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new Intent_Group_4_4(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new Intent_Group_4_3(lastRuleCallOrigin, this, 2, inst);
+			case 0: return new Intent_Group_4_6(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new Intent_Group_4_5(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new Intent_Group_4_4(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
 	}
@@ -973,7 +983,7 @@ protected class Intent_CommaKeyword_4_1_3 extends KeywordToken  {
 }
 
 
-// "Category" ":" category=EString ","
+// ("Category" ":" category=EString ",")?
 protected class Intent_Group_4_2 extends GroupToken {
 	
 	public Intent_Group_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1061,7 +1071,7 @@ protected class Intent_CategoryAssignment_4_2_2 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("category",true)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("category",false)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("category");
 		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getIntentAccess().getCategoryEStringParserRuleCall_4_2_2_0(), value, null)) {
 			type = AssignmentType.DATATYPE_RULE_CALL;
@@ -1096,7 +1106,7 @@ protected class Intent_CommaKeyword_4_2_3 extends KeywordToken  {
 }
 
 
-// "DataURI" ":" dataURI=EString ","
+// "Meta-Category" ":" metaCategory=EString ","
 protected class Intent_Group_4_3 extends GroupToken {
 	
 	public Intent_Group_4_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1118,22 +1128,23 @@ protected class Intent_Group_4_3 extends GroupToken {
 
 }
 
-// "DataURI"
-protected class Intent_DataURIKeyword_4_3_0 extends KeywordToken  {
+// "Meta-Category"
+protected class Intent_MetaCategoryKeyword_4_3_0 extends KeywordToken  {
 	
-	public Intent_DataURIKeyword_4_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public Intent_MetaCategoryKeyword_4_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentAccess().getDataURIKeyword_4_3_0();
+		return grammarAccess.getIntentAccess().getMetaCategoryKeyword_4_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new Intent_Group_4_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new Intent_Group_4_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -1155,23 +1166,23 @@ protected class Intent_ColonKeyword_4_3_1 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Intent_DataURIKeyword_4_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new Intent_MetaCategoryKeyword_4_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// dataURI=EString
-protected class Intent_DataURIAssignment_4_3_2 extends AssignmentToken  {
+// metaCategory=EString
+protected class Intent_MetaCategoryAssignment_4_3_2 extends AssignmentToken  {
 	
-	public Intent_DataURIAssignment_4_3_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public Intent_MetaCategoryAssignment_4_3_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getIntentAccess().getDataURIAssignment_4_3_2();
+		return grammarAccess.getIntentAccess().getMetaCategoryAssignment_4_3_2();
 	}
 
     @Override
@@ -1184,11 +1195,11 @@ protected class Intent_DataURIAssignment_4_3_2 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("dataURI",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("dataURI");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getIntentAccess().getDataURIEStringParserRuleCall_4_3_2_0(), value, null)) {
+		if((value = eObjectConsumer.getConsumable("metaCategory",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("metaCategory");
+		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getIntentAccess().getMetaCategoryEStringParserRuleCall_4_3_2_0(), value, null)) {
 			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getIntentAccess().getDataURIEStringParserRuleCall_4_3_2_0();
+			element = grammarAccess.getIntentAccess().getMetaCategoryEStringParserRuleCall_4_3_2_0();
 			return obj;
 		}
 		return null;
@@ -1211,7 +1222,7 @@ protected class Intent_CommaKeyword_4_3_3 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Intent_DataURIAssignment_4_3_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new Intent_MetaCategoryAssignment_4_3_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -1219,7 +1230,7 @@ protected class Intent_CommaKeyword_4_3_3 extends KeywordToken  {
 }
 
 
-// ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]" ",")?
+// "DataURI" ":" dataURI=EString ","
 protected class Intent_Group_4_4 extends GroupToken {
 	
 	public Intent_Group_4_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1234,23 +1245,23 @@ protected class Intent_Group_4_4 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Intent_CommaKeyword_4_4_6(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new Intent_CommaKeyword_4_4_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// "DataExtra"
-protected class Intent_DataExtraKeyword_4_4_0 extends KeywordToken  {
+// "DataURI"
+protected class Intent_DataURIKeyword_4_4_0 extends KeywordToken  {
 	
-	public Intent_DataExtraKeyword_4_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public Intent_DataURIKeyword_4_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentAccess().getDataExtraKeyword_4_4_0();
+		return grammarAccess.getIntentAccess().getDataURIKeyword_4_4_0();
 	}
 
     @Override
@@ -1278,23 +1289,23 @@ protected class Intent_ColonKeyword_4_4_1 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Intent_DataExtraKeyword_4_4_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new Intent_DataURIKeyword_4_4_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// "["
-protected class Intent_LeftSquareBracketKeyword_4_4_2 extends KeywordToken  {
+// dataURI=EString
+protected class Intent_DataURIAssignment_4_4_2 extends AssignmentToken  {
 	
-	public Intent_LeftSquareBracketKeyword_4_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public Intent_DataURIAssignment_4_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_4_2();
+	public Assignment getGrammarElement() {
+		return grammarAccess.getIntentAccess().getDataURIAssignment_4_4_2();
 	}
 
     @Override
@@ -1305,185 +1316,36 @@ protected class Intent_LeftSquareBracketKeyword_4_4_2 extends KeywordToken  {
 		}	
 	}
 
-}
-
-// extraData+=ExtraData
-protected class Intent_ExtraDataAssignment_4_4_3 extends AssignmentToken  {
-	
-	public Intent_ExtraDataAssignment_4_4_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getIntentAccess().getExtraDataAssignment_4_4_3();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ExtraData_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("extraData",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("extraData");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExtraDataRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_4_3_0(); 
-				consumed = obj;
-				return param;
-			}
+		if((value = eObjectConsumer.getConsumable("dataURI",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("dataURI");
+		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getIntentAccess().getDataURIEStringParserRuleCall_4_4_2_0(), value, null)) {
+			type = AssignmentType.DATATYPE_RULE_CALL;
+			element = grammarAccess.getIntentAccess().getDataURIEStringParserRuleCall_4_4_2_0();
+			return obj;
 		}
 		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new Intent_LeftSquareBracketKeyword_4_4_2(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-// ("," extraData+=ExtraData)*
-protected class Intent_Group_4_4_4 extends GroupToken {
-	
-	public Intent_Group_4_4_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getIntentAccess().getGroup_4_4_4();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new Intent_ExtraDataAssignment_4_4_4_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
 	}
 
 }
 
 // ","
-protected class Intent_CommaKeyword_4_4_4_0 extends KeywordToken  {
+protected class Intent_CommaKeyword_4_4_3 extends KeywordToken  {
 	
-	public Intent_CommaKeyword_4_4_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public Intent_CommaKeyword_4_4_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentAccess().getCommaKeyword_4_4_4_0();
+		return grammarAccess.getIntentAccess().getCommaKeyword_4_4_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Intent_Group_4_4_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new Intent_ExtraDataAssignment_4_4_3(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// extraData+=ExtraData
-protected class Intent_ExtraDataAssignment_4_4_4_1 extends AssignmentToken  {
-	
-	public Intent_ExtraDataAssignment_4_4_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getIntentAccess().getExtraDataAssignment_4_4_4_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ExtraData_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("extraData",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("extraData");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getExtraDataRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_4_4_1_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new Intent_CommaKeyword_4_4_4_0(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-
-// "]"
-protected class Intent_RightSquareBracketKeyword_4_4_5 extends KeywordToken  {
-	
-	public Intent_RightSquareBracketKeyword_4_4_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_4_5();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new Intent_Group_4_4_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new Intent_ExtraDataAssignment_4_4_3(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// ","
-protected class Intent_CommaKeyword_4_4_6 extends KeywordToken  {
-	
-	public Intent_CommaKeyword_4_4_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentAccess().getCommaKeyword_4_4_6();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new Intent_RightSquareBracketKeyword_4_4_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new Intent_DataURIAssignment_4_4_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -1491,7 +1353,7 @@ protected class Intent_CommaKeyword_4_4_6 extends KeywordToken  {
 }
 
 
-// ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?
+// ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]" ",")?
 protected class Intent_Group_4_5 extends GroupToken {
 	
 	public Intent_Group_4_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1513,23 +1375,22 @@ protected class Intent_Group_4_5 extends GroupToken {
 
 }
 
-// "ReturnData"
-protected class Intent_ReturnDataKeyword_4_5_0 extends KeywordToken  {
+// "DataExtra"
+protected class Intent_DataExtraKeyword_4_5_0 extends KeywordToken  {
 	
-	public Intent_ReturnDataKeyword_4_5_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public Intent_DataExtraKeyword_4_5_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentAccess().getReturnDataKeyword_4_5_0();
+		return grammarAccess.getIntentAccess().getDataExtraKeyword_4_5_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new Intent_Group_4_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new Intent_Group_4_3(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -1551,7 +1412,7 @@ protected class Intent_ColonKeyword_4_5_1 extends KeywordToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Intent_ReturnDataKeyword_4_5_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new Intent_DataExtraKeyword_4_5_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -1580,16 +1441,16 @@ protected class Intent_LeftSquareBracketKeyword_4_5_2 extends KeywordToken  {
 
 }
 
-// returnData+=ExtraData
-protected class Intent_ReturnDataAssignment_4_5_3 extends AssignmentToken  {
+// extraData+=ExtraData
+protected class Intent_ExtraDataAssignment_4_5_3 extends AssignmentToken  {
 	
-	public Intent_ReturnDataAssignment_4_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public Intent_ExtraDataAssignment_4_5_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getIntentAccess().getReturnDataAssignment_4_5_3();
+		return grammarAccess.getIntentAccess().getExtraDataAssignment_4_5_3();
 	}
 
     @Override
@@ -1602,13 +1463,13 @@ protected class Intent_ReturnDataAssignment_4_5_3 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("returnData",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("returnData");
+		if((value = eObjectConsumer.getConsumable("extraData",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("extraData");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getExtraDataRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_5_3_0(); 
+				element = grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_5_3_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -1626,7 +1487,7 @@ protected class Intent_ReturnDataAssignment_4_5_3 extends AssignmentToken  {
 	}	
 }
 
-// ("," returnData+=ExtraData)*
+// ("," extraData+=ExtraData)*
 protected class Intent_Group_4_5_4 extends GroupToken {
 	
 	public Intent_Group_4_5_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1641,7 +1502,7 @@ protected class Intent_Group_4_5_4 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Intent_ReturnDataAssignment_4_5_4_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new Intent_ExtraDataAssignment_4_5_4_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -1664,23 +1525,23 @@ protected class Intent_CommaKeyword_4_5_4_0 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new Intent_Group_4_5_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new Intent_ReturnDataAssignment_4_5_3(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new Intent_ExtraDataAssignment_4_5_3(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// returnData+=ExtraData
-protected class Intent_ReturnDataAssignment_4_5_4_1 extends AssignmentToken  {
+// extraData+=ExtraData
+protected class Intent_ExtraDataAssignment_4_5_4_1 extends AssignmentToken  {
 	
-	public Intent_ReturnDataAssignment_4_5_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public Intent_ExtraDataAssignment_4_5_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getIntentAccess().getReturnDataAssignment_4_5_4_1();
+		return grammarAccess.getIntentAccess().getExtraDataAssignment_4_5_4_1();
 	}
 
     @Override
@@ -1693,13 +1554,13 @@ protected class Intent_ReturnDataAssignment_4_5_4_1 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("returnData",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("returnData");
+		if((value = eObjectConsumer.getConsumable("extraData",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("extraData");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getExtraDataRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_5_4_1_0(); 
+				element = grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_5_4_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -1734,7 +1595,7 @@ protected class Intent_RightSquareBracketKeyword_4_5_5 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new Intent_Group_4_5_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new Intent_ReturnDataAssignment_4_5_3(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new Intent_ExtraDataAssignment_4_5_3(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -1764,6 +1625,279 @@ protected class Intent_CommaKeyword_4_5_6 extends KeywordToken  {
 }
 
 
+// ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?
+protected class Intent_Group_4_6 extends GroupToken {
+	
+	public Intent_Group_4_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getIntentAccess().getGroup_4_6();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Intent_CommaKeyword_4_6_6(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "ReturnData"
+protected class Intent_ReturnDataKeyword_4_6_0 extends KeywordToken  {
+	
+	public Intent_ReturnDataKeyword_4_6_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getIntentAccess().getReturnDataKeyword_4_6_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Intent_Group_4_5(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new Intent_Group_4_4(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ":"
+protected class Intent_ColonKeyword_4_6_1 extends KeywordToken  {
+	
+	public Intent_ColonKeyword_4_6_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getIntentAccess().getColonKeyword_4_6_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Intent_ReturnDataKeyword_4_6_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "["
+protected class Intent_LeftSquareBracketKeyword_4_6_2 extends KeywordToken  {
+	
+	public Intent_LeftSquareBracketKeyword_4_6_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_6_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Intent_ColonKeyword_4_6_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// returnData+=ExtraData
+protected class Intent_ReturnDataAssignment_4_6_3 extends AssignmentToken  {
+	
+	public Intent_ReturnDataAssignment_4_6_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getIntentAccess().getReturnDataAssignment_4_6_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ExtraData_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("returnData",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("returnData");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getExtraDataRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_6_3_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new Intent_LeftSquareBracketKeyword_4_6_2(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ("," returnData+=ExtraData)*
+protected class Intent_Group_4_6_4 extends GroupToken {
+	
+	public Intent_Group_4_6_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getIntentAccess().getGroup_4_6_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Intent_ReturnDataAssignment_4_6_4_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class Intent_CommaKeyword_4_6_4_0 extends KeywordToken  {
+	
+	public Intent_CommaKeyword_4_6_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getIntentAccess().getCommaKeyword_4_6_4_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Intent_Group_4_6_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new Intent_ReturnDataAssignment_4_6_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// returnData+=ExtraData
+protected class Intent_ReturnDataAssignment_4_6_4_1 extends AssignmentToken  {
+	
+	public Intent_ReturnDataAssignment_4_6_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getIntentAccess().getReturnDataAssignment_4_6_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ExtraData_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("returnData",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("returnData");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getExtraDataRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_6_4_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new Intent_CommaKeyword_4_6_4_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+
+// "]"
+protected class Intent_RightSquareBracketKeyword_4_6_5 extends KeywordToken  {
+	
+	public Intent_RightSquareBracketKeyword_4_6_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_6_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Intent_Group_4_6_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new Intent_ReturnDataAssignment_4_6_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class Intent_CommaKeyword_4_6_6 extends KeywordToken  {
+	
+	public Intent_CommaKeyword_4_6_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getIntentAccess().getCommaKeyword_4_6_6();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new Intent_RightSquareBracketKeyword_4_6_5(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
 
 
 /************ end Rule Intent ****************/
@@ -1772,14 +1906,13 @@ protected class Intent_CommaKeyword_4_5_6 extends KeywordToken  {
 
 /************ begin Rule ExtraData ****************
  *
- * //Bundle returns Bundle:
- * //	'Bundle' / * TODO: implement this rule and an appropriate IValueConverter * /;
  * ExtraData:
- * 	{ExtraData} "{" ("Name" ":" name=EString) ("Type" ":" type=EString) "}";
+ * 
+ * 	{ExtraData} "{" ("Name" ":" name=EString) "," ("Type" ":" type=SimpleTypeEnum) "}";
  *
  **/
 
-// {ExtraData} "{" ("Name" ":" name=EString) ("Type" ":" type=EString) "}"
+// {ExtraData} "{" ("Name" ":" name=EString) "," ("Type" ":" type=SimpleTypeEnum) "}"
 protected class ExtraData_Group extends GroupToken {
 	
 	public ExtraData_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1794,7 +1927,7 @@ protected class ExtraData_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ExtraData_RightCurlyBracketKeyword_4(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ExtraData_RightCurlyBracketKeyword_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -1957,38 +2090,16 @@ protected class ExtraData_NameAssignment_2_2 extends AssignmentToken  {
 }
 
 
-// "Type" ":" type=EString
-protected class ExtraData_Group_3 extends GroupToken {
+// ","
+protected class ExtraData_CommaKeyword_3 extends KeywordToken  {
 	
-	public ExtraData_Group_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getExtraDataAccess().getGroup_3();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ExtraData_TypeAssignment_3_2(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// "Type"
-protected class ExtraData_TypeKeyword_3_0 extends KeywordToken  {
-	
-	public ExtraData_TypeKeyword_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ExtraData_CommaKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getExtraDataAccess().getTypeKeyword_3_0();
+		return grammarAccess.getExtraDataAccess().getCommaKeyword_3();
 	}
 
     @Override
@@ -2001,44 +2112,88 @@ protected class ExtraData_TypeKeyword_3_0 extends KeywordToken  {
 
 }
 
-// ":"
-protected class ExtraData_ColonKeyword_3_1 extends KeywordToken  {
+// "Type" ":" type=SimpleTypeEnum
+protected class ExtraData_Group_4 extends GroupToken {
 	
-	public ExtraData_ColonKeyword_3_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ExtraData_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getExtraDataAccess().getColonKeyword_3_1();
+	public Group getGrammarElement() {
+		return grammarAccess.getExtraDataAccess().getGroup_4();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ExtraData_TypeKeyword_3_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ExtraData_TypeAssignment_4_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// type=EString
-protected class ExtraData_TypeAssignment_3_2 extends AssignmentToken  {
+// "Type"
+protected class ExtraData_TypeKeyword_4_0 extends KeywordToken  {
 	
-	public ExtraData_TypeAssignment_3_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ExtraData_TypeKeyword_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getExtraDataAccess().getTypeAssignment_3_2();
+	public Keyword getGrammarElement() {
+		return grammarAccess.getExtraDataAccess().getTypeKeyword_4_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ExtraData_ColonKeyword_3_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ExtraData_CommaKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ":"
+protected class ExtraData_ColonKeyword_4_1 extends KeywordToken  {
+	
+	public ExtraData_ColonKeyword_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getExtraDataAccess().getColonKeyword_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ExtraData_TypeKeyword_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// type=SimpleTypeEnum
+protected class ExtraData_TypeAssignment_4_2 extends AssignmentToken  {
+	
+	public ExtraData_TypeAssignment_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getExtraDataAccess().getTypeAssignment_4_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ExtraData_ColonKeyword_4_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -2047,9 +2202,9 @@ protected class ExtraData_TypeAssignment_3_2 extends AssignmentToken  {
 	public IEObjectConsumer tryConsume() {
 		if((value = eObjectConsumer.getConsumable("type",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("type");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getExtraDataAccess().getTypeEStringParserRuleCall_3_2_0(), value, null)) {
-			type = AssignmentType.DATATYPE_RULE_CALL;
-			element = grammarAccess.getExtraDataAccess().getTypeEStringParserRuleCall_3_2_0();
+		if(enumLitSerializer.isValid(obj.getEObject(), grammarAccess.getExtraDataAccess().getTypeSimpleTypeEnumEnumRuleCall_4_2_0(), value, null)) { 
+			type = AssignmentType.ENUM_RULE_CALL;
+			element = grammarAccess.getExtraDataAccess().getTypeSimpleTypeEnumEnumRuleCall_4_2_0();
 			return obj;
 		}
 		return null;
@@ -2059,21 +2214,21 @@ protected class ExtraData_TypeAssignment_3_2 extends AssignmentToken  {
 
 
 // "}"
-protected class ExtraData_RightCurlyBracketKeyword_4 extends KeywordToken  {
+protected class ExtraData_RightCurlyBracketKeyword_5 extends KeywordToken  {
 	
-	public ExtraData_RightCurlyBracketKeyword_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ExtraData_RightCurlyBracketKeyword_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getExtraDataAccess().getRightCurlyBracketKeyword_4();
+		return grammarAccess.getExtraDataAccess().getRightCurlyBracketKeyword_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ExtraData_Group_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ExtraData_Group_4(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -2087,6 +2242,7 @@ protected class ExtraData_RightCurlyBracketKeyword_4 extends KeywordToken  {
 /************ begin Rule ExplicitIntent ****************
  *
  * ExplicitIntent:
+ * 
  * 	{ExplicitIntent} "\'ExplicitIntent\'";
  *
  **/
@@ -2175,6 +2331,7 @@ protected class ExplicitIntent_ExplicitIntentKeyword_1 extends KeywordToken  {
 /************ begin Rule ImplicitIntent ****************
  *
  * ImplicitIntent:
+ * 
  * 	{ImplicitIntent} "\'ImplicitIntent\'";
  *
  **/
@@ -2263,6 +2420,7 @@ protected class ImplicitIntent_ImplicitIntentKeyword_1 extends KeywordToken  {
 /************ begin Rule BroadcastIntent ****************
  *
  * BroadcastIntent returns BroadCastIntent:
+ * 
  * 	{BroadCastIntent} "\'BroadcastIntent\'";
  *
  **/
@@ -2351,6 +2509,7 @@ protected class BroadcastIntent_BroadcastIntentKeyword_1 extends KeywordToken  {
 /************ begin Rule ServiceIntent ****************
  *
  * ServiceIntent:
+ * 
  * 	{ServiceIntent} "\'ServiceIntent\'";
  *
  **/

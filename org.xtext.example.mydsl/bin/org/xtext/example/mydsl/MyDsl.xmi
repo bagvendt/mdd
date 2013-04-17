@@ -46,10 +46,10 @@
         <elements xsi:type="xtext:Keyword" value="Type"/>
         <elements xsi:type="xtext:Keyword" value=":"/>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:RuleCall" rule="/0/@rules.4"/>
           <elements xsi:type="xtext:RuleCall" rule="/0/@rules.5"/>
           <elements xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
           <elements xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
+          <elements xsi:type="xtext:RuleCall" rule="/0/@rules.8"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value=","/>
         <elements xsi:type="xtext:Group">
@@ -69,10 +69,18 @@
             </elements>
             <elements xsi:type="xtext:Keyword" value=","/>
           </elements>
-          <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Group" cardinality="?">
             <elements xsi:type="xtext:Keyword" value="Category"/>
             <elements xsi:type="xtext:Keyword" value=":"/>
             <elements xsi:type="xtext:Assignment" feature="category" operator="=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+            </elements>
+            <elements xsi:type="xtext:Keyword" value=","/>
+          </elements>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="Meta-Category"/>
+            <elements xsi:type="xtext:Keyword" value=":"/>
+            <elements xsi:type="xtext:Assignment" feature="metaCategory" operator="=">
               <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
             </elements>
             <elements xsi:type="xtext:Keyword" value=","/>
@@ -147,14 +155,58 @@
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
           </elements>
         </elements>
+        <elements xsi:type="xtext:Keyword" value=","/>
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Keyword" value="Type"/>
           <elements xsi:type="xtext:Keyword" value=":"/>
           <elements xsi:type="xtext:Assignment" feature="type" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.4"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="}"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:EnumRule" name="SimpleTypeEnum">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EEnum" href="platform:/resource/AndroidIntent/model/Intent.ecore#//SimpleTypeEnum"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="platform:/resource/AndroidIntent/model/Intent.ecore#//SimpleTypeEnum/BOOLEAN"/>
+          <literal value="boolean"/>
+        </elements>
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="platform:/resource/AndroidIntent/model/Intent.ecore#//SimpleTypeEnum/BUNDLE"/>
+          <literal value="Bundle"/>
+        </elements>
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="platform:/resource/AndroidIntent/model/Intent.ecore#//SimpleTypeEnum/BYTE"/>
+          <literal value="byte"/>
+        </elements>
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="platform:/resource/AndroidIntent/model/Intent.ecore#//SimpleTypeEnum/DOUBLE"/>
+          <literal value="double"/>
+        </elements>
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="platform:/resource/AndroidIntent/model/Intent.ecore#//SimpleTypeEnum/FLOAT"/>
+          <literal value="float"/>
+        </elements>
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="platform:/resource/AndroidIntent/model/Intent.ecore#//SimpleTypeEnum/INT"/>
+          <literal value="integer"/>
+        </elements>
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="platform:/resource/AndroidIntent/model/Intent.ecore#//SimpleTypeEnum/LONG"/>
+          <literal value="long"/>
+        </elements>
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="platform:/resource/AndroidIntent/model/Intent.ecore#//SimpleTypeEnum/SHORT"/>
+          <literal value="short"/>
+        </elements>
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="platform:/resource/AndroidIntent/model/Intent.ecore#//SimpleTypeEnum/STRING"/>
+          <literal value="String"/>
+        </elements>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ExplicitIntent">

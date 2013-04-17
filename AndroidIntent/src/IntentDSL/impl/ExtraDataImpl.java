@@ -5,6 +5,8 @@ package IntentDSL.impl;
 import IntentDSL.ExtraData;
 import IntentDSL.IntentDSLPackage;
 
+import IntentDSL.SimpleTypeEnum;
+import IntentDSL.SimpleType;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -34,7 +36,7 @@ public class ExtraDataImpl extends NamedInstanceImpl implements ExtraData {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String TYPE_EDEFAULT = null;
+	protected static final SimpleTypeEnum TYPE_EDEFAULT = SimpleTypeEnum.STRING;
 
 	/**
 	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -44,7 +46,7 @@ public class ExtraDataImpl extends NamedInstanceImpl implements ExtraData {
 	 * @generated
 	 * @ordered
 	 */
-	protected String type = TYPE_EDEFAULT;
+	protected SimpleTypeEnum type = TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -70,7 +72,7 @@ public class ExtraDataImpl extends NamedInstanceImpl implements ExtraData {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getType() {
+	public SimpleTypeEnum getType() {
 		return type;
 	}
 
@@ -79,9 +81,9 @@ public class ExtraDataImpl extends NamedInstanceImpl implements ExtraData {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(String newType) {
-		String oldType = type;
-		type = newType;
+	public void setType(SimpleTypeEnum newType) {
+		SimpleTypeEnum oldType = type;
+		type = newType == null ? TYPE_EDEFAULT : newType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, IntentDSLPackage.EXTRA_DATA__TYPE, oldType, type));
 	}
@@ -109,7 +111,7 @@ public class ExtraDataImpl extends NamedInstanceImpl implements ExtraData {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case IntentDSLPackage.EXTRA_DATA__TYPE:
-				setType((String)newValue);
+				setType((SimpleTypeEnum)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -139,7 +141,7 @@ public class ExtraDataImpl extends NamedInstanceImpl implements ExtraData {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case IntentDSLPackage.EXTRA_DATA__TYPE:
-				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+				return type != TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

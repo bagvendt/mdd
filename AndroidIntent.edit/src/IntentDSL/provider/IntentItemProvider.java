@@ -66,6 +66,8 @@ public class IntentItemProvider
 			addActionPropertyDescriptor(object);
 			addDataURIPropertyDescriptor(object);
 			addCategoryPropertyDescriptor(object);
+			addTypePropertyDescriptor(object);
+			addMetaCategoryPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -137,6 +139,50 @@ public class IntentItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Type feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTypePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Intent_type_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Intent_type_feature", "_UI_Intent_type"),
+				 IntentDSLPackage.Literals.INTENT__TYPE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Meta Category feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMetaCategoryPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Intent_metaCategory_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Intent_metaCategory_feature", "_UI_Intent_type"),
+				 IntentDSLPackage.Literals.INTENT__META_CATEGORY,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -196,6 +242,8 @@ public class IntentItemProvider
 			case IntentDSLPackage.INTENT__ACTION:
 			case IntentDSLPackage.INTENT__DATA_URI:
 			case IntentDSLPackage.INTENT__CATEGORY:
+			case IntentDSLPackage.INTENT__TYPE:
+			case IntentDSLPackage.INTENT__META_CATEGORY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case IntentDSLPackage.INTENT__EXTRA_DATA:

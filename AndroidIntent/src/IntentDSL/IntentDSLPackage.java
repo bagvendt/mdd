@@ -4,6 +4,7 @@ package IntentDSL;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -185,13 +186,31 @@ public interface IntentDSLPackage extends EPackage {
 	int INTENT__RETURN_DATA = NAMED_INSTANCE_FEATURE_COUNT + 4;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTENT__TYPE = NAMED_INSTANCE_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Meta Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTENT__META_CATEGORY = NAMED_INSTANCE_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the '<em>Intent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTENT_FEATURE_COUNT = NAMED_INSTANCE_FEATURE_COUNT + 5;
+	int INTENT_FEATURE_COUNT = NAMED_INSTANCE_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link IntentDSL.impl.ExtraDataImpl <em>Extra Data</em>}' class.
@@ -295,6 +314,24 @@ public interface IntentDSLPackage extends EPackage {
 	int IMPLICIT_INTENT__RETURN_DATA = INTENT__RETURN_DATA;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLICIT_INTENT__TYPE = INTENT__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Meta Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLICIT_INTENT__META_CATEGORY = INTENT__META_CATEGORY;
+
+	/**
 	 * The number of structural features of the '<em>Implicit Intent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -366,6 +403,24 @@ public interface IntentDSLPackage extends EPackage {
 	 * @ordered
 	 */
 	int BROAD_CAST_INTENT__RETURN_DATA = INTENT__RETURN_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BROAD_CAST_INTENT__TYPE = INTENT__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Meta Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BROAD_CAST_INTENT__META_CATEGORY = INTENT__META_CATEGORY;
 
 	/**
 	 * The number of structural features of the '<em>Broad Cast Intent</em>' class.
@@ -441,6 +496,24 @@ public interface IntentDSLPackage extends EPackage {
 	int EXPLICIT_INTENT__RETURN_DATA = INTENT__RETURN_DATA;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPLICIT_INTENT__TYPE = INTENT__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Meta Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPLICIT_INTENT__META_CATEGORY = INTENT__META_CATEGORY;
+
+	/**
 	 * The number of structural features of the '<em>Explicit Intent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -514,6 +587,24 @@ public interface IntentDSLPackage extends EPackage {
 	int SERVICE_INTENT__RETURN_DATA = INTENT__RETURN_DATA;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_INTENT__TYPE = INTENT__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Meta Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_INTENT__META_CATEGORY = INTENT__META_CATEGORY;
+
+	/**
 	 * The number of structural features of the '<em>Service Intent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -522,6 +613,16 @@ public interface IntentDSLPackage extends EPackage {
 	 */
 	int SERVICE_INTENT_FEATURE_COUNT = INTENT_FEATURE_COUNT + 0;
 
+
+	/**
+	 * The meta object id for the '{@link IntentDSL.SimpleTypeEnum <em>Simple Type Enum</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see IntentDSL.SimpleTypeEnum
+	 * @see IntentDSL.impl.IntentDSLPackageImpl#getSimpleTypeEnum()
+	 * @generated
+	 */
+	int SIMPLE_TYPE_ENUM = 8;
 
 	/**
 	 * Returns the meta object for class '{@link IntentDSL.IntentModel <em>Intent Model</em>}'.
@@ -610,6 +711,28 @@ public interface IntentDSLPackage extends EPackage {
 	EReference getIntent_ReturnData();
 
 	/**
+	 * Returns the meta object for the attribute '{@link IntentDSL.Intent#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see IntentDSL.Intent#getType()
+	 * @see #getIntent()
+	 * @generated
+	 */
+	EAttribute getIntent_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link IntentDSL.Intent#getMetaCategory <em>Meta Category</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Meta Category</em>'.
+	 * @see IntentDSL.Intent#getMetaCategory()
+	 * @see #getIntent()
+	 * @generated
+	 */
+	EAttribute getIntent_MetaCategory();
+
+	/**
 	 * Returns the meta object for class '{@link IntentDSL.ExtraData <em>Extra Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -690,6 +813,16 @@ public interface IntentDSLPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getNamedInstance_Name();
+
+	/**
+	 * Returns the meta object for enum '{@link IntentDSL.SimpleTypeEnum <em>Simple Type Enum</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Simple Type Enum</em>'.
+	 * @see IntentDSL.SimpleTypeEnum
+	 * @generated
+	 */
+	EEnum getSimpleTypeEnum();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -782,6 +915,22 @@ public interface IntentDSLPackage extends EPackage {
 		EReference INTENT__RETURN_DATA = eINSTANCE.getIntent_ReturnData();
 
 		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTENT__TYPE = eINSTANCE.getIntent_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Meta Category</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTENT__META_CATEGORY = eINSTANCE.getIntent_MetaCategory();
+
+		/**
 		 * The meta object literal for the '{@link IntentDSL.impl.ExtraDataImpl <em>Extra Data</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -856,6 +1005,16 @@ public interface IntentDSLPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute NAMED_INSTANCE__NAME = eINSTANCE.getNamedInstance_Name();
+
+		/**
+		 * The meta object literal for the '{@link IntentDSL.SimpleTypeEnum <em>Simple Type Enum</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see IntentDSL.SimpleTypeEnum
+		 * @see IntentDSL.impl.IntentDSLPackageImpl#getSimpleTypeEnum()
+		 * @generated
+		 */
+		EEnum SIMPLE_TYPE_ENUM = eINSTANCE.getSimpleTypeEnum();
 
 	}
 

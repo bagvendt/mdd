@@ -1,0 +1,13 @@
+Model= [{ Type :'ImplicitIntent', 
+	Name : "Browse to webpage",
+	Action: "android.intent.action.VIEW",
+	Meta-Category: "Internet",
+	DataURI: "YOUR URL GOES HERE",
+	},
+	{ Type :'ImplicitIntent', 
+	Name : "Browse to webpage1",
+	Action: "android.intent.action.VIEW",
+	Meta-Category: "Internet",
+	DataURI: "YOUR URL GOES HERE",
+	}
+]

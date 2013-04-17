@@ -5,6 +5,17 @@
     copyrightFields="false">
   <foreignModel>Intent.ecore</foreignModel>
   <genPackages prefix="IntentDSL" disposableProviderFactory="true" ecorePackage="Intent.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="Intent.ecore#//SimpleTypeEnum">
+      <genEnumLiterals ecoreEnumLiteral="Intent.ecore#//SimpleTypeEnum/STRING"/>
+      <genEnumLiterals ecoreEnumLiteral="Intent.ecore#//SimpleTypeEnum/BOOLEAN"/>
+      <genEnumLiterals ecoreEnumLiteral="Intent.ecore#//SimpleTypeEnum/BUNDLE"/>
+      <genEnumLiterals ecoreEnumLiteral="Intent.ecore#//SimpleTypeEnum/BYTE"/>
+      <genEnumLiterals ecoreEnumLiteral="Intent.ecore#//SimpleTypeEnum/INT"/>
+      <genEnumLiterals ecoreEnumLiteral="Intent.ecore#//SimpleTypeEnum/FLOAT"/>
+      <genEnumLiterals ecoreEnumLiteral="Intent.ecore#//SimpleTypeEnum/LONG"/>
+      <genEnumLiterals ecoreEnumLiteral="Intent.ecore#//SimpleTypeEnum/SHORT"/>
+      <genEnumLiterals ecoreEnumLiteral="Intent.ecore#//SimpleTypeEnum/DOUBLE"/>
+    </genEnums>
     <genClasses ecoreClass="Intent.ecore#//IntentModel">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Intent.ecore#//IntentModel/intents"/>
     </genClasses>
@@ -15,6 +26,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//Intent/category"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Intent.ecore#//Intent/returnData"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//Intent/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//Intent/metaCategory"/>
     </genClasses>
     <genClasses ecoreClass="Intent.ecore#//ExtraData">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//ExtraData/type"/>

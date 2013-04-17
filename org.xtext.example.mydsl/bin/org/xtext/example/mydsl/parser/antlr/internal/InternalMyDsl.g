@@ -24,6 +24,7 @@ import org.eclipse.xtext.parser.*;
 import org.eclipse.xtext.parser.impl.*;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.Enumerator;
 import org.eclipse.xtext.parser.antlr.AbstractInternalAntlrParser;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream.HiddenTokens;
@@ -320,9 +321,9 @@ ruleIntent returns [EObject current=null]
     {
     	newLeafNode(otherlv_18, grammarAccess.getIntentAccess().getCommaKeyword_4_2_3());
     }
-)(	otherlv_19='DataURI' 
+)?(	otherlv_19='Meta-Category' 
     {
-    	newLeafNode(otherlv_19, grammarAccess.getIntentAccess().getDataURIKeyword_4_3_0());
+    	newLeafNode(otherlv_19, grammarAccess.getIntentAccess().getMetaCategoryKeyword_4_3_0());
     }
 	otherlv_20=':' 
     {
@@ -331,16 +332,16 @@ ruleIntent returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIntentAccess().getDataURIEStringParserRuleCall_4_3_2_0()); 
+	        newCompositeNode(grammarAccess.getIntentAccess().getMetaCategoryEStringParserRuleCall_4_3_2_0()); 
 	    }
-		lv_dataURI_21_0=ruleEString		{
+		lv_metaCategory_21_0=ruleEString		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getIntentRule());
 	        }
        		set(
        			$current, 
-       			"dataURI",
-        		lv_dataURI_21_0, 
+       			"metaCategory",
+        		lv_metaCategory_21_0, 
         		"EString");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -350,125 +351,155 @@ ruleIntent returns [EObject current=null]
     {
     	newLeafNode(otherlv_22, grammarAccess.getIntentAccess().getCommaKeyword_4_3_3());
     }
-)(	otherlv_23='DataExtra' 
+)(	otherlv_23='DataURI' 
     {
-    	newLeafNode(otherlv_23, grammarAccess.getIntentAccess().getDataExtraKeyword_4_4_0());
+    	newLeafNode(otherlv_23, grammarAccess.getIntentAccess().getDataURIKeyword_4_4_0());
     }
 	otherlv_24=':' 
     {
     	newLeafNode(otherlv_24, grammarAccess.getIntentAccess().getColonKeyword_4_4_1());
     }
-	otherlv_25='[' 
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getIntentAccess().getDataURIEStringParserRuleCall_4_4_2_0()); 
+	    }
+		lv_dataURI_25_0=ruleEString		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getIntentRule());
+	        }
+       		set(
+       			$current, 
+       			"dataURI",
+        		lv_dataURI_25_0, 
+        		"EString");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_26=',' 
     {
-    	newLeafNode(otherlv_25, grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_4_2());
+    	newLeafNode(otherlv_26, grammarAccess.getIntentAccess().getCommaKeyword_4_4_3());
+    }
+)(	otherlv_27='DataExtra' 
+    {
+    	newLeafNode(otherlv_27, grammarAccess.getIntentAccess().getDataExtraKeyword_4_5_0());
+    }
+	otherlv_28=':' 
+    {
+    	newLeafNode(otherlv_28, grammarAccess.getIntentAccess().getColonKeyword_4_5_1());
+    }
+	otherlv_29='[' 
+    {
+    	newLeafNode(otherlv_29, grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_5_2());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_4_3_0()); 
+	        newCompositeNode(grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_5_3_0()); 
 	    }
-		lv_extraData_26_0=ruleExtraData		{
+		lv_extraData_30_0=ruleExtraData		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getIntentRule());
 	        }
        		add(
        			$current, 
        			"extraData",
-        		lv_extraData_26_0, 
+        		lv_extraData_30_0, 
         		"ExtraData");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_27=',' 
+)(	otherlv_31=',' 
     {
-    	newLeafNode(otherlv_27, grammarAccess.getIntentAccess().getCommaKeyword_4_4_4_0());
+    	newLeafNode(otherlv_31, grammarAccess.getIntentAccess().getCommaKeyword_4_5_4_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_4_4_1_0()); 
+	        newCompositeNode(grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_5_4_1_0()); 
 	    }
-		lv_extraData_28_0=ruleExtraData		{
+		lv_extraData_32_0=ruleExtraData		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getIntentRule());
 	        }
        		add(
        			$current, 
        			"extraData",
-        		lv_extraData_28_0, 
+        		lv_extraData_32_0, 
         		"ExtraData");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*	otherlv_29=']' 
+))*	otherlv_33=']' 
     {
-    	newLeafNode(otherlv_29, grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_4_5());
+    	newLeafNode(otherlv_33, grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_5_5());
     }
-	otherlv_30=',' 
+	otherlv_34=',' 
     {
-    	newLeafNode(otherlv_30, grammarAccess.getIntentAccess().getCommaKeyword_4_4_6());
+    	newLeafNode(otherlv_34, grammarAccess.getIntentAccess().getCommaKeyword_4_5_6());
     }
-)?(	otherlv_31='ReturnData' 
+)?(	otherlv_35='ReturnData' 
     {
-    	newLeafNode(otherlv_31, grammarAccess.getIntentAccess().getReturnDataKeyword_4_5_0());
+    	newLeafNode(otherlv_35, grammarAccess.getIntentAccess().getReturnDataKeyword_4_6_0());
     }
-	otherlv_32=':' 
+	otherlv_36=':' 
     {
-    	newLeafNode(otherlv_32, grammarAccess.getIntentAccess().getColonKeyword_4_5_1());
+    	newLeafNode(otherlv_36, grammarAccess.getIntentAccess().getColonKeyword_4_6_1());
     }
-	otherlv_33='[' 
+	otherlv_37='[' 
     {
-    	newLeafNode(otherlv_33, grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_5_2());
+    	newLeafNode(otherlv_37, grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_6_2());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_5_3_0()); 
+	        newCompositeNode(grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_6_3_0()); 
 	    }
-		lv_returnData_34_0=ruleExtraData		{
+		lv_returnData_38_0=ruleExtraData		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getIntentRule());
 	        }
        		add(
        			$current, 
        			"returnData",
-        		lv_returnData_34_0, 
+        		lv_returnData_38_0, 
         		"ExtraData");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_35=',' 
+)(	otherlv_39=',' 
     {
-    	newLeafNode(otherlv_35, grammarAccess.getIntentAccess().getCommaKeyword_4_5_4_0());
+    	newLeafNode(otherlv_39, grammarAccess.getIntentAccess().getCommaKeyword_4_6_4_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_5_4_1_0()); 
+	        newCompositeNode(grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_6_4_1_0()); 
 	    }
-		lv_returnData_36_0=ruleExtraData		{
+		lv_returnData_40_0=ruleExtraData		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getIntentRule());
 	        }
        		add(
        			$current, 
        			"returnData",
-        		lv_returnData_36_0, 
+        		lv_returnData_40_0, 
         		"ExtraData");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*	otherlv_37=']' 
+))*	otherlv_41=']' 
     {
-    	newLeafNode(otherlv_37, grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_5_5());
+    	newLeafNode(otherlv_41, grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_6_5());
     }
-	otherlv_38=',' 
+	otherlv_42=',' 
     {
-    	newLeafNode(otherlv_38, grammarAccess.getIntentAccess().getCommaKeyword_4_5_6());
+    	newLeafNode(otherlv_42, grammarAccess.getIntentAccess().getCommaKeyword_4_6_6());
     }
 )?))
 ;
@@ -563,35 +594,39 @@ ruleExtraData returns [EObject current=null]
 	    }
 
 )
-))(	otherlv_5='Type' 
+))	otherlv_5=',' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getExtraDataAccess().getTypeKeyword_3_0());
+    	newLeafNode(otherlv_5, grammarAccess.getExtraDataAccess().getCommaKeyword_3());
     }
-	otherlv_6=':' 
+(	otherlv_6='Type' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getExtraDataAccess().getColonKeyword_3_1());
+    	newLeafNode(otherlv_6, grammarAccess.getExtraDataAccess().getTypeKeyword_4_0());
+    }
+	otherlv_7=':' 
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getExtraDataAccess().getColonKeyword_4_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getExtraDataAccess().getTypeEStringParserRuleCall_3_2_0()); 
+	        newCompositeNode(grammarAccess.getExtraDataAccess().getTypeSimpleTypeEnumEnumRuleCall_4_2_0()); 
 	    }
-		lv_type_7_0=ruleEString		{
+		lv_type_8_0=ruleSimpleTypeEnum		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getExtraDataRule());
 	        }
        		set(
        			$current, 
        			"type",
-        		lv_type_7_0, 
-        		"EString");
+        		lv_type_8_0, 
+        		"SimpleTypeEnum");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))	otherlv_8='}' 
+))	otherlv_9='}' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getExtraDataAccess().getRightCurlyBracketKeyword_4());
+    	newLeafNode(otherlv_9, grammarAccess.getExtraDataAccess().getRightCurlyBracketKeyword_5());
     }
 )
 ;
@@ -721,6 +756,67 @@ ruleServiceIntent returns [EObject current=null]
 ;
 
 
+
+
+
+// Rule SimpleTypeEnum
+ruleSimpleTypeEnum returns [Enumerator current=null] 
+    @init { enterRule(); }
+    @after { leaveRule(); }:
+((	enumLiteral_0='boolean' 
+	{
+        $current = grammarAccess.getSimpleTypeEnumAccess().getBOOLEANEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_0, grammarAccess.getSimpleTypeEnumAccess().getBOOLEANEnumLiteralDeclaration_0()); 
+    }
+)
+    |(	enumLiteral_1='Bundle' 
+	{
+        $current = grammarAccess.getSimpleTypeEnumAccess().getBUNDLEEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_1, grammarAccess.getSimpleTypeEnumAccess().getBUNDLEEnumLiteralDeclaration_1()); 
+    }
+)
+    |(	enumLiteral_2='byte' 
+	{
+        $current = grammarAccess.getSimpleTypeEnumAccess().getBYTEEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getSimpleTypeEnumAccess().getBYTEEnumLiteralDeclaration_2()); 
+    }
+)
+    |(	enumLiteral_3='double' 
+	{
+        $current = grammarAccess.getSimpleTypeEnumAccess().getDOUBLEEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getSimpleTypeEnumAccess().getDOUBLEEnumLiteralDeclaration_3()); 
+    }
+)
+    |(	enumLiteral_4='float' 
+	{
+        $current = grammarAccess.getSimpleTypeEnumAccess().getFLOATEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_4, grammarAccess.getSimpleTypeEnumAccess().getFLOATEnumLiteralDeclaration_4()); 
+    }
+)
+    |(	enumLiteral_5='integer' 
+	{
+        $current = grammarAccess.getSimpleTypeEnumAccess().getINTEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_5, grammarAccess.getSimpleTypeEnumAccess().getINTEnumLiteralDeclaration_5()); 
+    }
+)
+    |(	enumLiteral_6='long' 
+	{
+        $current = grammarAccess.getSimpleTypeEnumAccess().getLONGEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_6, grammarAccess.getSimpleTypeEnumAccess().getLONGEnumLiteralDeclaration_6()); 
+    }
+)
+    |(	enumLiteral_7='short' 
+	{
+        $current = grammarAccess.getSimpleTypeEnumAccess().getSHORTEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_7, grammarAccess.getSimpleTypeEnumAccess().getSHORTEnumLiteralDeclaration_7()); 
+    }
+)
+    |(	enumLiteral_8='String' 
+	{
+        $current = grammarAccess.getSimpleTypeEnumAccess().getSTRINGEnumLiteralDeclaration_8().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_8, grammarAccess.getSimpleTypeEnumAccess().getSTRINGEnumLiteralDeclaration_8()); 
+    }
+));
 
 
 

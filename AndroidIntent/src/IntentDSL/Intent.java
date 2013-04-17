@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link IntentDSL.Intent#getDataURI <em>Data URI</em>}</li>
  *   <li>{@link IntentDSL.Intent#getCategory <em>Category</em>}</li>
  *   <li>{@link IntentDSL.Intent#getReturnData <em>Return Data</em>}</li>
+ *   <li>{@link IntentDSL.Intent#getType <em>Type</em>}</li>
+ *   <li>{@link IntentDSL.Intent#getMetaCategory <em>Meta Category</em>}</li>
  * </ul>
  * </p>
  *
@@ -136,5 +138,57 @@ public interface Intent extends NamedInstance {
 	 * @generated
 	 */
 	EList<ExtraData> getReturnData();
+
+	/**
+	 * Returns the value of the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type</em>' attribute.
+	 * @see #setType(String)
+	 * @see IntentDSL.IntentDSLPackage#getIntent_Type()
+	 * @model
+	 * @generated
+	 */
+	String getType();
+
+	/**
+	 * Sets the value of the '{@link IntentDSL.Intent#getType <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type</em>' attribute.
+	 * @see #getType()
+	 * @generated
+	 */
+	void setType(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Meta Category</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Meta Category</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Meta Category</em>' attribute.
+	 * @see #setMetaCategory(String)
+	 * @see IntentDSL.IntentDSLPackage#getIntent_MetaCategory()
+	 * @model
+	 * @generated
+	 */
+	String getMetaCategory();
+
+	/**
+	 * Sets the value of the '{@link IntentDSL.Intent#getMetaCategory <em>Meta Category</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Meta Category</em>' attribute.
+	 * @see #getMetaCategory()
+	 * @generated
+	 */
+	void setMetaCategory(String value);
 
 } // Intent

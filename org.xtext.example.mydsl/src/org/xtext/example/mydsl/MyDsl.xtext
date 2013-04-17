@@ -18,10 +18,11 @@ Intent returns Intent:
 	(
 		('Name' ':' name=EString ',')
 		('Action' ':' action=EString ',') 
-		('Category' ':' category=EString ',')
+		('Category' ':' category=EString ',')?
+		('Meta-Category' ':' metaCategory=EString ',')
 		('DataURI' ':' dataURI=EString ',')
 		('DataExtra' ':' '[' extraData+=ExtraData ( "," extraData+=ExtraData)* ']' ',')?
-		('ReturnData' ':' '[' returnData+=ExtraData ( "," returnData+=ExtraData)* ']' ',' )?
+		('ReturnData' ':' '[' returnData+=ExtraData ( "," returnData+=ExtraData)* ']' )?
 	);
 
 
@@ -31,9 +32,15 @@ EString returns ecore::EString:
 ExtraData returns ExtraData:
 	{ExtraData}
 	'{'
-		('Name' ':' name=EString)
-		('Type' ':' type=EString)
+		('Name' ':' name=EString) ','
+		('Type' ':' type=SimpleTypeEnum)
 	'}';
+
+// Just to make it easier for developers to chose a datatype (and reduce errors)
+enum SimpleTypeEnum: 
+	BOOLEAN='boolean' | BUNDLE='Bundle' | BYTE='byte' | DOUBLE='double' | FLOAT='float' | INT='integer' | LONG='long' | SHORT='short' | STRING='String';
+
+
 
 ExplicitIntent returns ExplicitIntent:
 	{ExplicitIntent}

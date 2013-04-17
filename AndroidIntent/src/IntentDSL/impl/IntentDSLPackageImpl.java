@@ -13,8 +13,11 @@ import IntentDSL.IntentModel;
 import IntentDSL.NamedInstance;
 import IntentDSL.ServiceIntent;
 
+import IntentDSL.SimpleTypeEnum;
+import IntentDSL.SimpleType;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -82,6 +85,13 @@ public class IntentDSLPackageImpl extends EPackageImpl implements IntentDSLPacka
 	 * @generated
 	 */
 	private EClass namedInstanceEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum simpleTypeEnumEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -221,6 +231,24 @@ public class IntentDSLPackageImpl extends EPackageImpl implements IntentDSLPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getIntent_Type() {
+		return (EAttribute)intentEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIntent_MetaCategory() {
+		return (EAttribute)intentEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getExtraData() {
 		return extraDataEClass;
 	}
@@ -293,6 +321,15 @@ public class IntentDSLPackageImpl extends EPackageImpl implements IntentDSLPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getSimpleTypeEnum() {
+		return simpleTypeEnumEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public IntentDSLFactory getIntentDSLFactory() {
 		return (IntentDSLFactory)getEFactoryInstance();
 	}
@@ -325,6 +362,8 @@ public class IntentDSLPackageImpl extends EPackageImpl implements IntentDSLPacka
 		createEAttribute(intentEClass, INTENT__DATA_URI);
 		createEAttribute(intentEClass, INTENT__CATEGORY);
 		createEReference(intentEClass, INTENT__RETURN_DATA);
+		createEAttribute(intentEClass, INTENT__TYPE);
+		createEAttribute(intentEClass, INTENT__META_CATEGORY);
 
 		extraDataEClass = createEClass(EXTRA_DATA);
 		createEAttribute(extraDataEClass, EXTRA_DATA__TYPE);
@@ -339,6 +378,9 @@ public class IntentDSLPackageImpl extends EPackageImpl implements IntentDSLPacka
 
 		namedInstanceEClass = createEClass(NAMED_INSTANCE);
 		createEAttribute(namedInstanceEClass, NAMED_INSTANCE__NAME);
+
+		// Create enums
+		simpleTypeEnumEEnum = createEEnum(SIMPLE_TYPE_ENUM);
 	}
 
 	/**
@@ -387,9 +429,11 @@ public class IntentDSLPackageImpl extends EPackageImpl implements IntentDSLPacka
 		initEAttribute(getIntent_DataURI(), ecorePackage.getEString(), "dataURI", null, 0, 1, Intent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIntent_Category(), ecorePackage.getEString(), "category", null, 0, 1, Intent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIntent_ReturnData(), this.getExtraData(), null, "returnData", null, 0, -1, Intent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIntent_Type(), ecorePackage.getEString(), "type", null, 0, 1, Intent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIntent_MetaCategory(), ecorePackage.getEString(), "metaCategory", null, 0, 1, Intent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(extraDataEClass, ExtraData.class, "ExtraData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getExtraData_Type(), ecorePackage.getEString(), "type", null, 0, 1, ExtraData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExtraData_Type(), this.getSimpleTypeEnum(), "type", null, 0, 1, ExtraData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(implicitIntentEClass, ImplicitIntent.class, "ImplicitIntent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -401,6 +445,18 @@ public class IntentDSLPackageImpl extends EPackageImpl implements IntentDSLPacka
 
 		initEClass(namedInstanceEClass, NamedInstance.class, "NamedInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNamedInstance_Name(), ecorePackage.getEString(), "name", null, 0, 1, NamedInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(simpleTypeEnumEEnum, SimpleTypeEnum.class, "SimpleTypeEnum");
+		addEEnumLiteral(simpleTypeEnumEEnum, SimpleTypeEnum.STRING);
+		addEEnumLiteral(simpleTypeEnumEEnum, SimpleTypeEnum.BOOLEAN);
+		addEEnumLiteral(simpleTypeEnumEEnum, SimpleTypeEnum.BUNDLE);
+		addEEnumLiteral(simpleTypeEnumEEnum, SimpleTypeEnum.BYTE);
+		addEEnumLiteral(simpleTypeEnumEEnum, SimpleTypeEnum.INT);
+		addEEnumLiteral(simpleTypeEnumEEnum, SimpleTypeEnum.FLOAT);
+		addEEnumLiteral(simpleTypeEnumEEnum, SimpleTypeEnum.LONG);
+		addEEnumLiteral(simpleTypeEnumEEnum, SimpleTypeEnum.SHORT);
+		addEEnumLiteral(simpleTypeEnumEEnum, SimpleTypeEnum.DOUBLE);
 
 		// Create resource
 		createResource(eNS_URI);
