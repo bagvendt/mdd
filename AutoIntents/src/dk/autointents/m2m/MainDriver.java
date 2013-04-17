@@ -60,12 +60,12 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 
 import IntentDSL.BroadCastIntent;
 /*
-import org.emftext.language.java.JavaClasspath;
-import org.emftext.language.java.containers.JavaRoot;
-import org.emftext.language.java.members.ClassMethod;
-import org.emftext.language.java.members.Method;
-import org.emftext.language.java.resource.JaMoPPUtil;
-*/
+ import org.emftext.language.java.JavaClasspath;
+ import org.emftext.language.java.containers.JavaRoot;
+ import org.emftext.language.java.members.ClassMethod;
+ import org.emftext.language.java.members.Method;
+ import org.emftext.language.java.resource.JaMoPPUtil;
+ */
 import IntentDSL.ExtraData;
 import IntentDSL.IntentDSLPackage;
 import IntentDSL.IntentModel;
@@ -121,10 +121,10 @@ public class MainDriver {
 		IntentModel model = (IntentModel) resource.getContents().get(0);
 		internalHelper = new ModelHelper(model);
 		ref_help = new ReferencesHelper();
-		//ref_help.init();
+		// ref_help.init();
 		return internalHelper;
 	}
-	
+
 	public void insertIntent(String intentName, ICompilationUnit cu)
 			throws Exception {
 		IntentDSL.Intent intent = internalHelper.getIntentByName(intentName);
@@ -139,7 +139,6 @@ public class MainDriver {
 		// get the block node that contains the statements in the method body
 		TypeDeclaration typeDecl = (TypeDeclaration) astRoot.types().get(0);
 		MethodDeclaration methodDecl = typeDecl.getMethods()[0];
-
 
 		Block block = methodDecl.getBody();
 
@@ -161,17 +160,32 @@ public class MainDriver {
 		cc.setType(ast.newSimpleType(ast.newSimpleName("Intent")));
 		vdf.setInitializer(cc);
 		listRewrite.insertLast(vds, null);
-
-		// i.setData(URL);
-		StringLiteral data = ast.newStringLiteral();
-		data.setLiteralValue(intent.getDataURI());
-		MethodInvocation dataMeth = ast.newMethodInvocation();
 		SimpleName intentVariableName = ast.newSimpleName("i");
-		dataMeth.setExpression(intentVariableName);
-		dataMeth.setName(ast.newSimpleName("setData"));
-		dataMeth.arguments().add(data);
-		Statement dataState = ast.newExpressionStatement(dataMeth);
-		listRewrite.insertLast(dataState, null);
+
+		// i.setCategory(CATEGORY)
+		String categoryFromModel = intent.getCategory();
+		if (categoryFromModel != null) {
+			StringLiteral category = ast.newStringLiteral();
+			category.setLiteralValue(categoryFromModel.toString());
+			MethodInvocation categoryMeth = ast.newMethodInvocation();
+			categoryMeth.setExpression(intentVariableName);
+			categoryMeth.setName(ast.newSimpleName("setData"));
+			categoryMeth.arguments().add(category);
+			Statement categoryState = ast.newExpressionStatement(categoryMeth);
+			listRewrite.insertLast(categoryState, null);
+		}
+		// i.setData(URI);
+		String dataFromModel = intent.getDataURI();
+		if (dataFromModel != null) {
+			StringLiteral data = ast.newStringLiteral();
+			data.setLiteralValue(dataFromModel.toString());
+			MethodInvocation dataMeth = ast.newMethodInvocation();
+			dataMeth.setExpression(intentVariableName);
+			dataMeth.setName(ast.newSimpleName("setData"));
+			dataMeth.arguments().add(data);
+			Statement dataState = ast.newExpressionStatement(dataMeth);
+			listRewrite.insertLast(dataState, null);
+		}
 
 		// i.putExtra("Name", "Object");
 		for (ExtraData extraData : intent.getExtraData()) {
@@ -179,7 +193,8 @@ public class MainDriver {
 			StringLiteral extraName = ast.newStringLiteral();
 			extraName.setLiteralValue(extraData.getName());
 
-			SimpleName extraType = ast.newSimpleName(extraData.getType().toString());
+			SimpleName extraType = ast.newSimpleName(extraData.getType()
+					.toString());
 
 			MethodInvocation extraMeth = ast.newMethodInvocation();
 			SimpleName intentVariableName1 = ast.newSimpleName("i");
@@ -228,93 +243,71 @@ public class MainDriver {
 	}
 
 	/*
-	public void insertIntentJAMOPP(String intentName, ICompilationUnit cu)
-			throws Exception {
-		
-
-		ReferencesHelper ref_help = new ReferencesHelper();
-		ref_help.init();
-		
-		URI uri = URI.createURI("platform:/resource" + cu.getPath().toString());
-
-		ResourceSet resourceSet = new ResourceSetImpl();
-		Resource resource = resourceSet.createResource(uri);
-		
-		Map<Object, Object> map = new HashMap<Object, Object>();
-		map.put(JavaClasspath.OPTION_USE_LOCAL_CLASSPATH, Boolean.TRUE);
-		
-		try {
-			resource.load(map);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		EObject content = resource.getContents().get(0);
-		
-
-		JavaRoot root = (JavaRoot) content;
-		
-		org.emftext.language.java.classifiers.Class theClass = null;
-		
-		for (EObject lol : root.eContents()) {
-			
-			if (lol instanceof org.emftext.language.java.classifiers.Class) {
-				theClass = (org.emftext.language.java.classifiers.Class) lol;
-			}
-		}
-		ClassMethod theMethod = null;
-		for (Method method : theClass.getMethods()) {
-			//System.out.println(method.getClass().toString());
-			theMethod = (ClassMethod) method;
-		}
-		TransformTest a = new TransformTest(ref_help);
-		theMethod.getStatements().addAll(a.buildIntentCall());
-		System.out.println(a.buildIntentCall());
-		
-
-		try {
-			resource.save(map);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-	}
-	
-	public void test() throws IOException {
-		JaMoPPUtil.initialize();
-//		Bundle bundle = Platform.getBundle("AutoIntents");
-//		URL fileURL = bundle.getEntry("res/IntentDemo.java");
-		
-		
-		
-		
-//		ResourceSet resourceSet = new ResourceSetImpl();
-//		Resource resource = resourceSet.createResource(uri);
-//		
-//		Map<Object, Object> map = new HashMap<Object, Object>();
-//		map.put(JavaClasspath.OPTION_USE_LOCAL_CLASSPATH, Boolean.TRUE);
-//		
-//		resource.load(map);
-
-		
-	}
+	 * public void insertIntentJAMOPP(String intentName, ICompilationUnit cu)
+	 * throws Exception {
+	 * 
+	 * 
+	 * ReferencesHelper ref_help = new ReferencesHelper(); ref_help.init();
+	 * 
+	 * URI uri = URI.createURI("platform:/resource" + cu.getPath().toString());
+	 * 
+	 * ResourceSet resourceSet = new ResourceSetImpl(); Resource resource =
+	 * resourceSet.createResource(uri);
+	 * 
+	 * Map<Object, Object> map = new HashMap<Object, Object>();
+	 * map.put(JavaClasspath.OPTION_USE_LOCAL_CLASSPATH, Boolean.TRUE);
+	 * 
+	 * try { resource.load(map); } catch (IOException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * EObject content = resource.getContents().get(0);
+	 * 
+	 * 
+	 * JavaRoot root = (JavaRoot) content;
+	 * 
+	 * org.emftext.language.java.classifiers.Class theClass = null;
+	 * 
+	 * for (EObject lol : root.eContents()) {
+	 * 
+	 * if (lol instanceof org.emftext.language.java.classifiers.Class) {
+	 * theClass = (org.emftext.language.java.classifiers.Class) lol; } }
+	 * ClassMethod theMethod = null; for (Method method : theClass.getMethods())
+	 * { //System.out.println(method.getClass().toString()); theMethod =
+	 * (ClassMethod) method; } TransformTest a = new TransformTest(ref_help);
+	 * theMethod.getStatements().addAll(a.buildIntentCall());
+	 * System.out.println(a.buildIntentCall());
+	 * 
+	 * 
+	 * try { resource.save(map); } catch (IOException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * 
+	 * 
+	 * }
+	 * 
+	 * public void test() throws IOException { JaMoPPUtil.initialize(); //
+	 * Bundle bundle = Platform.getBundle("AutoIntents"); // URL fileURL =
+	 * bundle.getEntry("res/IntentDemo.java");
+	 * 
+	 * 
+	 * 
+	 * 
+	 * // ResourceSet resourceSet = new ResourceSetImpl(); // Resource resource
+	 * = resourceSet.createResource(uri); // // Map<Object, Object> map = new
+	 * HashMap<Object, Object>(); //
+	 * map.put(JavaClasspath.OPTION_USE_LOCAL_CLASSPATH, Boolean.TRUE); // //
+	 * resource.load(map);
+	 * 
+	 * 
+	 * }
 	 */
 	public static void main(String[] args) {
 		MainDriver driver = new MainDriver();
 		/*
-		try {
-			driver.test();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//	ModelHelper modelHelper = driver.LoadDSL();
-		//TransformTest tt = new TransformTest();
-		//tt.invoke(modelHelper.getIntentByName("BrowseToGoogle"));
+		 * try { driver.test(); } catch (IOException e) { // TODO Auto-generated
+		 * catch block e.printStackTrace(); } // ModelHelper modelHelper =
+		 * driver.LoadDSL(); //TransformTest tt = new TransformTest();
+		 * //tt.invoke(modelHelper.getIntentByName("BrowseToGoogle"));
 		 */
 	}
 }
