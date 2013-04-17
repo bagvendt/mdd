@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+/*
 import org.emftext.language.java.JavaClasspath;
 import org.emftext.language.java.classifiers.Classifier;
 import org.emftext.language.java.containers.JavaRoot;
@@ -21,6 +22,7 @@ import org.emftext.language.java.references.ReferenceableElement;
 import org.emftext.language.java.resource.JaMoPPUtil;
 import org.emftext.language.java.types.NamespaceClassifierReference;
 import org.emftext.language.java.variables.LocalVariable;
+*/
 import org.osgi.framework.Bundle;
 
 /**
@@ -32,10 +34,10 @@ import org.osgi.framework.Bundle;
  *
  */
 public class ReferencesHelper {
-	private ClassMethod theMethod;
-	private org.emftext.language.java.classifiers.Class theClass;
-	private JavaRoot root;
-	
+	//private ClassMethod theMethod;
+	//private org.emftext.language.java.classifiers.Class theClass;
+	//private JavaRoot root;
+	/*
 	public void init() {
 		
 		JaMoPPUtil.initialize();
@@ -72,18 +74,18 @@ public class ReferencesHelper {
 
 		}
 	}
+	*/
+	/*
 	public Classifier getIntentReference() {
-		/**
-		 * This is horrible and very static, but we were unable to create the reference with JaMopp on our own.
-		 */
 		LocalVariable i = theMethod.getLocalVariable("i");
 		NamespaceClassifierReference add = (NamespaceClassifierReference) i.getTypeReference();
 		return add.getClassifierReferences().get(0).getTarget();
 	}
+	
 	public IdentifierReference getUriParse() {
 		NewConstructorCall new_const = (NewConstructorCall) theMethod.getLocalVariable("i").getInitialValue();
 		IdentifierReference id_ref = (IdentifierReference) new_const.getArguments().get(1);
 		return id_ref;
 	}
-
+	*/
 }

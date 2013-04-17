@@ -57,12 +57,14 @@ import org.eclipse.ui.*;
 import org.eclipse.ui.internal.Model;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
+
+/*
 import org.emftext.language.java.JavaClasspath;
 import org.emftext.language.java.containers.JavaRoot;
 import org.emftext.language.java.members.ClassMethod;
 import org.emftext.language.java.members.Method;
 import org.emftext.language.java.resource.JaMoPPUtil;
-
+*/
 import IntentDSL.ExtraData;
 import IntentDSL.IntentDSLPackage;
 import IntentDSL.IntentModel;
@@ -118,7 +120,7 @@ public class MainDriver {
 		IntentModel model = (IntentModel) resource.getContents().get(0);
 		internalHelper = new ModelHelper(model);
 		ref_help = new ReferencesHelper();
-		ref_help.init();
+		//ref_help.init();
 		return internalHelper;
 	}
 	
@@ -224,6 +226,7 @@ public class MainDriver {
 		cu.getBuffer().setContents(document.get());
 	}
 
+	/*
 	public void insertIntentJAMOPP(String intentName, ICompilationUnit cu)
 			throws Exception {
 		
@@ -279,6 +282,7 @@ public class MainDriver {
 		
 		
 	}
+	
 	public void test() throws IOException {
 		JaMoPPUtil.initialize();
 //		Bundle bundle = Platform.getBundle("AutoIntents");
@@ -297,9 +301,10 @@ public class MainDriver {
 
 		
 	}
-
+	 */
 	public static void main(String[] args) {
 		MainDriver driver = new MainDriver();
+		/*
 		try {
 			driver.test();
 		} catch (IOException e) {
@@ -309,6 +314,6 @@ public class MainDriver {
 		//	ModelHelper modelHelper = driver.LoadDSL();
 		//TransformTest tt = new TransformTest();
 		//tt.invoke(modelHelper.getIntentByName("BrowseToGoogle"));
-
+		 */
 	}
 }

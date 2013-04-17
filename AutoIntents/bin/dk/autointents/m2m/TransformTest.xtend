@@ -2,6 +2,7 @@ package dk.autointents.m2m
 
 import IntentDSL.Intent
 import org.eclipse.emf.common.util.EList
+/*
 import org.emftext.language.java.statements.Statement
 import org.emftext.language.java.members.MembersFactory
 import org.emftext.language.java.variables.VariablesFactory
@@ -16,9 +17,9 @@ import org.emftext.language.java.instantiations.InstantiationsFactory
 import org.eclipse.emf.common.util.BasicEList
 import org.emftext.language.java.statements.LocalVariableStatement
 import org.emftext.language.java.variables.LocalVariable
-
+ */
 class TransformTest {
-
+	/* 
 	ReferencesHelper ref_help;
 	MembersFactory membersFactory;
 	VariablesFactory variablesFactory;
@@ -61,4 +62,5 @@ class TransformTest {
 			statList.add(stat_1)
 			return statList;
 	}
+	*/
 }
