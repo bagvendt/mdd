@@ -107,14 +107,14 @@ ruleIntentModel returns [EObject current=null]
     {
     	newLeafNode(otherlv_3, grammarAccess.getIntentModelAccess().getLeftSquareBracketKeyword_3());
     }
-(	otherlv_4='{' 
+	otherlv_4='{' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getIntentModelAccess().getLeftCurlyBracketKeyword_4_0());
+    	newLeafNode(otherlv_4, grammarAccess.getIntentModelAccess().getLeftCurlyBracketKeyword_4());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIntentModelAccess().getIntentsIntentParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getIntentModelAccess().getIntentsIntentParserRuleCall_5_0()); 
 	    }
 		lv_intents_5_0=ruleIntent		{
 	        if ($current==null) {
@@ -129,35 +129,43 @@ ruleIntentModel returns [EObject current=null]
 	    }
 
 )
-)(	otherlv_6=',' 
+)	otherlv_6='}' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getIntentModelAccess().getCommaKeyword_4_2_0());
+    	newLeafNode(otherlv_6, grammarAccess.getIntentModelAccess().getRightCurlyBracketKeyword_6());
+    }
+(	otherlv_7=',' 
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getIntentModelAccess().getCommaKeyword_7_0());
+    }
+	otherlv_8='{' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getIntentModelAccess().getLeftCurlyBracketKeyword_7_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getIntentModelAccess().getIntentsIntentParserRuleCall_4_2_1_0()); 
+	        newCompositeNode(grammarAccess.getIntentModelAccess().getIntentsIntentParserRuleCall_7_2_0()); 
 	    }
-		lv_intents_7_0=ruleIntent		{
+		lv_intents_9_0=ruleIntent		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getIntentModelRule());
 	        }
        		add(
        			$current, 
        			"intents",
-        		lv_intents_7_0, 
+        		lv_intents_9_0, 
         		"Intent");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*	otherlv_8='}' 
+)	otherlv_10='}' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getIntentModelAccess().getRightCurlyBracketKeyword_4_3());
+    	newLeafNode(otherlv_10, grammarAccess.getIntentModelAccess().getRightCurlyBracketKeyword_7_3());
     }
-)?	otherlv_9=']' 
+)*	otherlv_11=']' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getIntentModelAccess().getRightSquareBracketKeyword_5());
+    	newLeafNode(otherlv_11, grammarAccess.getIntentModelAccess().getRightSquareBracketKeyword_8());
     }
 )
 ;
@@ -496,10 +504,6 @@ ruleIntent returns [EObject current=null]
 ))*	otherlv_41=']' 
     {
     	newLeafNode(otherlv_41, grammarAccess.getIntentAccess().getRightSquareBracketKeyword_4_6_5());
-    }
-	otherlv_42=',' 
-    {
-    	newLeafNode(otherlv_42, grammarAccess.getIntentAccess().getCommaKeyword_4_6_6());
     }
 )?))
 ;

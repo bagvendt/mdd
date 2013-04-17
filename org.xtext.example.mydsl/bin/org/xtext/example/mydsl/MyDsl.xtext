@@ -8,7 +8,7 @@ IntentModel returns IntentModel:
 	{IntentModel}
 	name="Model" '=' 
 		'['
-		('{' intents+=Intent ( "," intents+=Intent)* '}' )?
+		'{' intents+=Intent '}'  ( "," '{' intents+=Intent '}')* 
 		']';
 
 		
@@ -22,7 +22,7 @@ Intent returns Intent:
 		('Meta-Category' ':' metaCategory=EString ',')
 		('DataURI' ':' dataURI=EString ',')
 		('DataExtra' ':' '[' extraData+=ExtraData ( "," extraData+=ExtraData)* ']' ',')?
-		('ReturnData' ':' '[' returnData+=ExtraData ( "," returnData+=ExtraData)* ']' ',' )?
+		('ReturnData' ':' '[' returnData+=ExtraData ( "," returnData+=ExtraData)* ']' )?
 	);
 
 

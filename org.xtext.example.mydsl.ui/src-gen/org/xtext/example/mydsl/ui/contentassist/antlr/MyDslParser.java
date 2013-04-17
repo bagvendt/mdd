@@ -41,8 +41,7 @@ public class MyDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEStringAccess().getAlternatives(), "rule__EString__Alternatives");
 					put(grammarAccess.getSimpleTypeEnumAccess().getAlternatives(), "rule__SimpleTypeEnum__Alternatives");
 					put(grammarAccess.getIntentModelAccess().getGroup(), "rule__IntentModel__Group__0");
-					put(grammarAccess.getIntentModelAccess().getGroup_4(), "rule__IntentModel__Group_4__0");
-					put(grammarAccess.getIntentModelAccess().getGroup_4_2(), "rule__IntentModel__Group_4_2__0");
+					put(grammarAccess.getIntentModelAccess().getGroup_7(), "rule__IntentModel__Group_7__0");
 					put(grammarAccess.getIntentAccess().getGroup(), "rule__Intent__Group__0");
 					put(grammarAccess.getIntentAccess().getGroup_4(), "rule__Intent__Group_4__0");
 					put(grammarAccess.getIntentAccess().getGroup_4_0(), "rule__Intent__Group_4_0__0");
@@ -62,8 +61,8 @@ public class MyDslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBroadcastIntentAccess().getGroup(), "rule__BroadcastIntent__Group__0");
 					put(grammarAccess.getServiceIntentAccess().getGroup(), "rule__ServiceIntent__Group__0");
 					put(grammarAccess.getIntentModelAccess().getNameAssignment_1(), "rule__IntentModel__NameAssignment_1");
-					put(grammarAccess.getIntentModelAccess().getIntentsAssignment_4_1(), "rule__IntentModel__IntentsAssignment_4_1");
-					put(grammarAccess.getIntentModelAccess().getIntentsAssignment_4_2_1(), "rule__IntentModel__IntentsAssignment_4_2_1");
+					put(grammarAccess.getIntentModelAccess().getIntentsAssignment_5(), "rule__IntentModel__IntentsAssignment_5");
+					put(grammarAccess.getIntentModelAccess().getIntentsAssignment_7_2(), "rule__IntentModel__IntentsAssignment_7_2");
 					put(grammarAccess.getIntentAccess().getNameAssignment_4_0_2(), "rule__Intent__NameAssignment_4_0_2");
 					put(grammarAccess.getIntentAccess().getActionAssignment_4_1_2(), "rule__Intent__ActionAssignment_4_1_2");
 					put(grammarAccess.getIntentAccess().getCategoryAssignment_4_2_2(), "rule__Intent__CategoryAssignment_4_2_2");

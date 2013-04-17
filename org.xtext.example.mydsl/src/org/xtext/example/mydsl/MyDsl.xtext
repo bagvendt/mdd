@@ -8,7 +8,7 @@ IntentModel returns IntentModel:
 	{IntentModel}
 	name="Model" '=' 
 		'['
-		('{' intents+=Intent ( "," intents+=Intent)* '}' )?
+		'{' intents+=Intent '}'  ( "," '{' intents+=Intent '}')* 
 		']';
 
 		

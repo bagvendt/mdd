@@ -48,11 +48,11 @@ protected class ThisRootNode extends RootToken {
  *
  * IntentModel:
  * 
- * 	{IntentModel} name="Model" "=" "[" ("{" intents+=Intent ("," intents+=Intent)* "}")? "]";
+ * 	{IntentModel} name="Model" "=" "[" "{" intents+=Intent "}" ("," "{" intents+=Intent "}")* "]";
  *
  **/
 
-// {IntentModel} name="Model" "=" "[" ("{" intents+=Intent ("," intents+=Intent)* "}")? "]"
+// {IntentModel} name="Model" "=" "[" "{" intents+=Intent "}" ("," "{" intents+=Intent "}")* "]"
 protected class IntentModel_Group extends GroupToken {
 	
 	public IntentModel_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -67,7 +67,7 @@ protected class IntentModel_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new IntentModel_RightSquareBracketKeyword_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new IntentModel_RightSquareBracketKeyword_8(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -185,38 +185,16 @@ protected class IntentModel_LeftSquareBracketKeyword_3 extends KeywordToken  {
 
 }
 
-// ("{" intents+=Intent ("," intents+=Intent)* "}")?
-protected class IntentModel_Group_4 extends GroupToken {
-	
-	public IntentModel_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getIntentModelAccess().getGroup_4();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new IntentModel_RightCurlyBracketKeyword_4_3(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
 // "{"
-protected class IntentModel_LeftCurlyBracketKeyword_4_0 extends KeywordToken  {
+protected class IntentModel_LeftCurlyBracketKeyword_4 extends KeywordToken  {
 	
-	public IntentModel_LeftCurlyBracketKeyword_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public IntentModel_LeftCurlyBracketKeyword_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentModelAccess().getLeftCurlyBracketKeyword_4_0();
+		return grammarAccess.getIntentModelAccess().getLeftCurlyBracketKeyword_4();
 	}
 
     @Override
@@ -230,15 +208,15 @@ protected class IntentModel_LeftCurlyBracketKeyword_4_0 extends KeywordToken  {
 }
 
 // intents+=Intent
-protected class IntentModel_IntentsAssignment_4_1 extends AssignmentToken  {
+protected class IntentModel_IntentsAssignment_5 extends AssignmentToken  {
 	
-	public IntentModel_IntentsAssignment_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public IntentModel_IntentsAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getIntentModelAccess().getIntentsAssignment_4_1();
+		return grammarAccess.getIntentModelAccess().getIntentsAssignment_5();
 	}
 
     @Override
@@ -257,7 +235,7 @@ protected class IntentModel_IntentsAssignment_4_1 extends AssignmentToken  {
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getIntentRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getIntentModelAccess().getIntentsIntentParserRuleCall_4_1_0(); 
+				element = grammarAccess.getIntentModelAccess().getIntentsIntentParserRuleCall_5_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -269,28 +247,50 @@ protected class IntentModel_IntentsAssignment_4_1 extends AssignmentToken  {
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new IntentModel_LeftCurlyBracketKeyword_4_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new IntentModel_LeftCurlyBracketKeyword_4(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
 
-// ("," intents+=Intent)*
-protected class IntentModel_Group_4_2 extends GroupToken {
+// "}"
+protected class IntentModel_RightCurlyBracketKeyword_6 extends KeywordToken  {
 	
-	public IntentModel_Group_4_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public IntentModel_RightCurlyBracketKeyword_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getIntentModelAccess().getGroup_4_2();
+	public Keyword getGrammarElement() {
+		return grammarAccess.getIntentModelAccess().getRightCurlyBracketKeyword_6();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new IntentModel_IntentsAssignment_4_2_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new IntentModel_IntentsAssignment_5(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ("," "{" intents+=Intent "}")*
+protected class IntentModel_Group_7 extends GroupToken {
+	
+	public IntentModel_Group_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getIntentModelAccess().getGroup_7();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new IntentModel_RightCurlyBracketKeyword_7_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -298,22 +298,44 @@ protected class IntentModel_Group_4_2 extends GroupToken {
 }
 
 // ","
-protected class IntentModel_CommaKeyword_4_2_0 extends KeywordToken  {
+protected class IntentModel_CommaKeyword_7_0 extends KeywordToken  {
 	
-	public IntentModel_CommaKeyword_4_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public IntentModel_CommaKeyword_7_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentModelAccess().getCommaKeyword_4_2_0();
+		return grammarAccess.getIntentModelAccess().getCommaKeyword_7_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new IntentModel_Group_4_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new IntentModel_IntentsAssignment_4_1(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new IntentModel_Group_7(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new IntentModel_RightCurlyBracketKeyword_6(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "{"
+protected class IntentModel_LeftCurlyBracketKeyword_7_1 extends KeywordToken  {
+	
+	public IntentModel_LeftCurlyBracketKeyword_7_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getIntentModelAccess().getLeftCurlyBracketKeyword_7_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new IntentModel_CommaKeyword_7_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -321,15 +343,15 @@ protected class IntentModel_CommaKeyword_4_2_0 extends KeywordToken  {
 }
 
 // intents+=Intent
-protected class IntentModel_IntentsAssignment_4_2_1 extends AssignmentToken  {
+protected class IntentModel_IntentsAssignment_7_2 extends AssignmentToken  {
 	
-	public IntentModel_IntentsAssignment_4_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public IntentModel_IntentsAssignment_7_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getIntentModelAccess().getIntentsAssignment_4_2_1();
+		return grammarAccess.getIntentModelAccess().getIntentsAssignment_7_2();
 	}
 
     @Override
@@ -348,7 +370,7 @@ protected class IntentModel_IntentsAssignment_4_2_1 extends AssignmentToken  {
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getIntentRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getIntentModelAccess().getIntentsIntentParserRuleCall_4_2_1_0(); 
+				element = grammarAccess.getIntentModelAccess().getIntentsIntentParserRuleCall_7_2_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -360,30 +382,28 @@ protected class IntentModel_IntentsAssignment_4_2_1 extends AssignmentToken  {
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new IntentModel_CommaKeyword_4_2_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new IntentModel_LeftCurlyBracketKeyword_7_1(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
 
-
 // "}"
-protected class IntentModel_RightCurlyBracketKeyword_4_3 extends KeywordToken  {
+protected class IntentModel_RightCurlyBracketKeyword_7_3 extends KeywordToken  {
 	
-	public IntentModel_RightCurlyBracketKeyword_4_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public IntentModel_RightCurlyBracketKeyword_7_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentModelAccess().getRightCurlyBracketKeyword_4_3();
+		return grammarAccess.getIntentModelAccess().getRightCurlyBracketKeyword_7_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new IntentModel_Group_4_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new IntentModel_IntentsAssignment_4_1(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new IntentModel_IntentsAssignment_7_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -392,22 +412,22 @@ protected class IntentModel_RightCurlyBracketKeyword_4_3 extends KeywordToken  {
 
 
 // "]"
-protected class IntentModel_RightSquareBracketKeyword_5 extends KeywordToken  {
+protected class IntentModel_RightSquareBracketKeyword_8 extends KeywordToken  {
 	
-	public IntentModel_RightSquareBracketKeyword_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public IntentModel_RightSquareBracketKeyword_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentModelAccess().getRightSquareBracketKeyword_5();
+		return grammarAccess.getIntentModelAccess().getRightSquareBracketKeyword_8();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new IntentModel_Group_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new IntentModel_LeftSquareBracketKeyword_3(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new IntentModel_Group_7(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new IntentModel_RightCurlyBracketKeyword_6(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -428,7 +448,7 @@ protected class IntentModel_RightSquareBracketKeyword_5 extends KeywordToken  {
  * 
  * 	",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]"
  * 
- * 	",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?);
+ * 	",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]")?);
  *
  **/
 
@@ -438,7 +458,7 @@ protected class IntentModel_RightSquareBracketKeyword_5 extends KeywordToken  {
 // 
 // ",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData ("," extraData+=ExtraData)* "]"
 // 
-// ",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?)
+// ",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]")?)
 protected class Intent_Group extends GroupToken {
 	
 	public Intent_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -713,7 +733,7 @@ protected class Intent_CommaKeyword_3 extends KeywordToken  {
 // 
 // ":" metaCategory=EString ",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" extraData+=ExtraData (","
 // 
-// extraData+=ExtraData)* "]" ",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?
+// extraData+=ExtraData)* "]" ",")? ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]")?
 protected class Intent_Group_4 extends GroupToken {
 	
 	public Intent_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1625,7 +1645,7 @@ protected class Intent_CommaKeyword_4_5_6 extends KeywordToken  {
 }
 
 
-// ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]" ",")?
+// ("ReturnData" ":" "[" returnData+=ExtraData ("," returnData+=ExtraData)* "]")?
 protected class Intent_Group_4_6 extends GroupToken {
 	
 	public Intent_Group_4_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1640,7 +1660,7 @@ protected class Intent_Group_4_6 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new Intent_CommaKeyword_4_6_6(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new Intent_RightSquareBracketKeyword_4_6_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -1869,28 +1889,6 @@ protected class Intent_RightSquareBracketKeyword_4_6_5 extends KeywordToken  {
 		switch(index) {
 			case 0: return new Intent_Group_4_6_4(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new Intent_ReturnDataAssignment_4_6_3(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// ","
-protected class Intent_CommaKeyword_4_6_6 extends KeywordToken  {
-	
-	public Intent_CommaKeyword_4_6_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getIntentAccess().getCommaKeyword_4_6_6();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new Intent_RightSquareBracketKeyword_4_6_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
