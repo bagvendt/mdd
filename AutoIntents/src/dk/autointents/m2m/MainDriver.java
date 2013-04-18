@@ -6,6 +6,7 @@ package dk.autointents.m2m;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +31,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Block;
+import org.eclipse.jdt.core.dom.CatchClause;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Expression;
@@ -44,6 +46,7 @@ import org.eclipse.jdt.core.dom.QualifiedType;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.StringLiteral;
+import org.eclipse.jdt.core.dom.TryStatement;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
@@ -125,7 +128,7 @@ public class MainDriver {
 		return internalHelper;
 	}
 
-	public void insertIntent(String intentName, ICompilationUnit cu)
+	public boolean insertIntent(String intentName, ICompilationUnit cu, boolean generateExeptions)
 			throws Exception {
 		IntentDSL.Intent intent = internalHelper.getIntentByName(intentName);
 		ASTParser parser = ASTParser.newParser(AST.JLS4);
@@ -138,7 +141,23 @@ public class MainDriver {
 
 		// get the block node that contains the statements in the method body
 		TypeDeclaration typeDecl = (TypeDeclaration) astRoot.types().get(0);
-		MethodDeclaration methodDecl = typeDecl.getMethods()[0];
+		MethodDeclaration[] methods = typeDecl.getMethods();
+
+		MethodDeclaration methodDecl = null;
+
+		for (MethodDeclaration methodDeclaration : methods) {
+
+			String methodName = methodDeclaration.getName().getIdentifier();
+			if (methodName.equals("onCreate")) {
+				methodDecl = methodDeclaration;
+			}
+		}
+
+		if (methodDecl == null) {
+			return false;
+		}
+
+		List<Statement> statements = new ArrayList<Statement>();
 
 		Block block = methodDecl.getBody();
 
@@ -159,7 +178,9 @@ public class MainDriver {
 		cc.arguments().add(action);
 		cc.setType(ast.newSimpleType(ast.newSimpleName("Intent")));
 		vdf.setInitializer(cc);
-		listRewrite.insertLast(vds, null);
+
+		statements.add(vds);
+
 		SimpleName intentVariableName = ast.newSimpleName("i");
 
 		// i.setCategory(CATEGORY)
@@ -169,10 +190,11 @@ public class MainDriver {
 			category.setLiteralValue(categoryFromModel.toString());
 			MethodInvocation categoryMeth = ast.newMethodInvocation();
 			categoryMeth.setExpression(intentVariableName);
-			categoryMeth.setName(ast.newSimpleName("setData"));
+			categoryMeth.setName(ast.newSimpleName("setCategory"));
 			categoryMeth.arguments().add(category);
 			Statement categoryState = ast.newExpressionStatement(categoryMeth);
-			listRewrite.insertLast(categoryState, null);
+
+			statements.add(categoryState);
 		}
 		// i.setData(URI);
 		String dataFromModel = intent.getDataURI();
@@ -184,7 +206,7 @@ public class MainDriver {
 			dataMeth.setName(ast.newSimpleName("setData"));
 			dataMeth.arguments().add(data);
 			Statement dataState = ast.newExpressionStatement(dataMeth);
-			listRewrite.insertLast(dataState, null);
+			statements.add(dataState);
 		}
 
 		// i.putExtra("Name", "Object");
@@ -203,32 +225,85 @@ public class MainDriver {
 			extraMeth.arguments().add(extraName);
 			extraMeth.arguments().add(extraType);
 			Statement extraState = ast.newExpressionStatement(extraMeth);
-			listRewrite.insertLast(extraState, null);
+			statements.add(extraState);
 		}
 
-		if (intent.getExtraData().isEmpty()) {
+		if (intent instanceof BroadCastIntent) {
 			// startActivity(i);
 			SimpleName expression = ast.newSimpleName("i");
 
 			MethodInvocation startActivityMeth = ast.newMethodInvocation();
-			startActivityMeth.setName(ast.newSimpleName("startActivity"));
+			startActivityMeth.setName(ast.newSimpleName("sendBroadcast"));
 			startActivityMeth.arguments().add(expression);
 			Statement startActivityStatement = ast
 					.newExpressionStatement(startActivityMeth);
-			listRewrite.insertLast(startActivityStatement, null);
+			statements.add(startActivityStatement);
 		} else {
-			// startActivity(i);
-			SimpleName expression = ast.newSimpleName("i");
-			SimpleName expression1 = ast.newSimpleName("REQUEST_CODE");
 
+			if (intent.getReturnData().isEmpty()) {
+				// startActivity(i);
+				SimpleName expression = ast.newSimpleName("i");
+
+				MethodInvocation startActivityMeth = ast.newMethodInvocation();
+				startActivityMeth.setName(ast.newSimpleName("startActivity"));
+				startActivityMeth.arguments().add(expression);
+				Statement startActivityStatement = ast
+						.newExpressionStatement(startActivityMeth);
+				statements.add(startActivityStatement);
+			} else {
+				// startActivity(i);
+				SimpleName expression = ast.newSimpleName("i");
+				SimpleName expression1 = ast.newSimpleName("REQUEST_CODE");
+
+				MethodInvocation startActivityMeth = ast.newMethodInvocation();
+				startActivityMeth.setName(ast
+						.newSimpleName("startActivityForResult"));
+				startActivityMeth.arguments().add(expression);
+				startActivityMeth.arguments().add(expression1);
+				Statement startActivityStatement = ast
+						.newExpressionStatement(startActivityMeth);
+				statements.add(startActivityStatement);
+
+			}
+		}
+
+		if (generateExeptions) {
+			Block tryBlock = ast.newBlock();
+			Block catchBlock = ast.newBlock();
+
+			for (Statement statement : statements) {
+				tryBlock.statements().add(statement);
+			}
+
+			TryStatement trystatement = ast.newTryStatement();
+			
+			CatchClause catchclause = ast.newCatchClause();
+
+			StringLiteral exeptionMessage = ast.newStringLiteral();
+			exeptionMessage.setLiteralValue("We could find a app that could open this! Try find one in the Play Store");
+
+			//Toast.makeText(app.getBaseContext(), MESSAGE, Toast.LENGTH_SHORT).show();
+			QualifiedName var1 = ast.newQualifiedName(ast.newSimpleName("app"), ast.newSimpleName("getBaseContext"));
+			
 			MethodInvocation startActivityMeth = ast.newMethodInvocation();
-			startActivityMeth.setName(ast
-					.newSimpleName("startActivityForResult"));
-			startActivityMeth.arguments().add(expression);
-			startActivityMeth.arguments().add(expression1);
-			Statement startActivityStatement = ast
-					.newExpressionStatement(startActivityMeth);
-			listRewrite.insertLast(startActivityStatement, null);
+			startActivityMeth.setExpression(ast.newQualifiedName(ast.newSimpleName("Toast"), ast.newSimpleName("makeText")));
+			startActivityMeth.arguments().add(var1);
+			Statement catchbody = ast.newExpressionStatement(startActivityMeth);
+			
+			catchBlock.statements().add(catchbody);
+			
+			catchclause.setBody(catchBlock);
+			
+			trystatement.catchClauses().add(catchclause);
+			trystatement.setBody(tryBlock);
+			
+			listRewrite.insertLast(trystatement, null);
+			// Toast.makeText(app.getBaseContext(),(String)data.result,
+			// Toast.LENGTH_SHORT).show();
+		} else {
+			for (Statement statement : statements) {
+				listRewrite.insertLast(statement, null);
+			}
 
 		}
 
@@ -240,6 +315,8 @@ public class MainDriver {
 		Document document = new Document(cu.getSource());
 		res.apply(document);
 		cu.getBuffer().setContents(document.get());
+
+		return true;
 	}
 
 	/*

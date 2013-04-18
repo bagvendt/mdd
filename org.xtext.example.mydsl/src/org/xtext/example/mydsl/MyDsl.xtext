@@ -20,9 +20,9 @@ Intent returns Intent:
 		('Action' ':' action=EString ',') 
 		('Category' ':' category=EString ',')?
 		('Meta-Category' ':' metaCategory=EString ',')
-		('DataURI' ':' dataURI=EString ',')
-		('DataExtra' ':' '[' ( "," extraData+=ExtraData)* ']' ',')?
-		('ReturnData' ':' '[' ( "," returnData+=ExtraData)* ']' )?
+		('DataURI' ':' dataURI=EString ',')?
+		('DataExtra' ':' '[' ( (",")? extraData+=ExtraData)* ']' ',')?
+		('ReturnData' ':' '[' ( (",")? returnData+=ExtraData)* ']' )?
 	);
 
 
