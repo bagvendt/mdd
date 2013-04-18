@@ -164,18 +164,18 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
 		//
-		//	",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" ("," extraData+=ExtraData)* "]" ",")? ("ReturnData" ":"
+		//	",") ("DataURI" ":" dataURI=EString ",")? ("DataExtra" ":" "[" (","? extraData+=ExtraData)* "]" ",")? ("ReturnData"
 		//
-		//	"[" ("," returnData+=ExtraData)* "]")?);
+		//	":" "[" (","? returnData+=ExtraData)* "]")?);
 		public ParserRule getRule() { return rule; }
 
 		//"Type" ":" (ExplicitIntent | ImplicitIntent | BroadcastIntent | ServiceIntent) "," (("Name" ":" name=EString ",")
 		//
 		//("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
 		//
-		//",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" ("," extraData+=ExtraData)* "]" ",")? ("ReturnData" ":"
+		//",") ("DataURI" ":" dataURI=EString ",")? ("DataExtra" ":" "[" (","? extraData+=ExtraData)* "]" ",")? ("ReturnData"
 		//
-		//"[" ("," returnData+=ExtraData)* "]")?)
+		//":" "[" (","? returnData+=ExtraData)* "]")?)
 		public Group getGroup() { return cGroup; }
 
 		//"Type"
@@ -204,9 +204,9 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("Name" ":" name=EString ",") ("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category"
 		//
-		//":" metaCategory=EString ",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" ("," extraData+=ExtraData)* "]"
+		//":" metaCategory=EString ",") ("DataURI" ":" dataURI=EString ",")? ("DataExtra" ":" "[" (","? extraData+=ExtraData)*
 		//
-		//",")? ("ReturnData" ":" "[" ("," returnData+=ExtraData)* "]")?
+		//"]" ",")? ("ReturnData" ":" "[" (","? returnData+=ExtraData)* "]")?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"Name" ":" name=EString ","
@@ -281,7 +281,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//","
 		public Keyword getCommaKeyword_4_3_3() { return cCommaKeyword_4_3_3; }
 
-		//"DataURI" ":" dataURI=EString ","
+		//("DataURI" ":" dataURI=EString ",")?
 		public Group getGroup_4_4() { return cGroup_4_4; }
 
 		//"DataURI"
@@ -299,7 +299,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//","
 		public Keyword getCommaKeyword_4_4_3() { return cCommaKeyword_4_4_3; }
 
-		//("DataExtra" ":" "[" ("," extraData+=ExtraData)* "]" ",")?
+		//("DataExtra" ":" "[" (","? extraData+=ExtraData)* "]" ",")?
 		public Group getGroup_4_5() { return cGroup_4_5; }
 
 		//"DataExtra"
@@ -311,10 +311,10 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4_5_2() { return cLeftSquareBracketKeyword_4_5_2; }
 
-		//("," extraData+=ExtraData)*
+		//(","? extraData+=ExtraData)*
 		public Group getGroup_4_5_3() { return cGroup_4_5_3; }
 
-		//","
+		//","?
 		public Keyword getCommaKeyword_4_5_3_0() { return cCommaKeyword_4_5_3_0; }
 
 		//extraData+=ExtraData
@@ -329,7 +329,7 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//","
 		public Keyword getCommaKeyword_4_5_5() { return cCommaKeyword_4_5_5; }
 
-		//("ReturnData" ":" "[" ("," returnData+=ExtraData)* "]")?
+		//("ReturnData" ":" "[" (","? returnData+=ExtraData)* "]")?
 		public Group getGroup_4_6() { return cGroup_4_6; }
 
 		//"ReturnData"
@@ -341,10 +341,10 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4_6_2() { return cLeftSquareBracketKeyword_4_6_2; }
 
-		//("," returnData+=ExtraData)*
+		//(","? returnData+=ExtraData)*
 		public Group getGroup_4_6_3() { return cGroup_4_6_3; }
 
-		//","
+		//","?
 		public Keyword getCommaKeyword_4_6_3_0() { return cCommaKeyword_4_6_3_0; }
 
 		//returnData+=ExtraData
@@ -687,9 +687,9 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
 	//
-	//	",") ("DataURI" ":" dataURI=EString ",") ("DataExtra" ":" "[" ("," extraData+=ExtraData)* "]" ",")? ("ReturnData" ":"
+	//	",") ("DataURI" ":" dataURI=EString ",")? ("DataExtra" ":" "[" (","? extraData+=ExtraData)* "]" ",")? ("ReturnData"
 	//
-	//	"[" ("," returnData+=ExtraData)* "]")?);
+	//	":" "[" (","? returnData+=ExtraData)* "]")?);
 	public IntentElements getIntentAccess() {
 		return (pIntent != null) ? pIntent : (pIntent = new IntentElements());
 	}

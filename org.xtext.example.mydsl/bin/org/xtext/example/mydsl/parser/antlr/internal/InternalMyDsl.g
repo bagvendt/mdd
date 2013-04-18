@@ -389,7 +389,7 @@ ruleIntent returns [EObject current=null]
     {
     	newLeafNode(otherlv_26, grammarAccess.getIntentAccess().getCommaKeyword_4_4_3());
     }
-)(	otherlv_27='DataExtra' 
+)?(	otherlv_27='DataExtra' 
     {
     	newLeafNode(otherlv_27, grammarAccess.getIntentAccess().getDataExtraKeyword_4_5_0());
     }
@@ -401,11 +401,11 @@ ruleIntent returns [EObject current=null]
     {
     	newLeafNode(otherlv_29, grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_5_2());
     }
-(	otherlv_30=',' 
+((	otherlv_30=',' 
     {
     	newLeafNode(otherlv_30, grammarAccess.getIntentAccess().getCommaKeyword_4_5_3_0());
     }
-(
+)?(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getIntentAccess().getExtraDataExtraDataParserRuleCall_4_5_3_1_0()); 
@@ -443,11 +443,11 @@ ruleIntent returns [EObject current=null]
     {
     	newLeafNode(otherlv_36, grammarAccess.getIntentAccess().getLeftSquareBracketKeyword_4_6_2());
     }
-(	otherlv_37=',' 
+((	otherlv_37=',' 
     {
     	newLeafNode(otherlv_37, grammarAccess.getIntentAccess().getCommaKeyword_4_6_3_0());
     }
-(
+)?(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getIntentAccess().getReturnDataExtraDataParserRuleCall_4_6_3_1_0()); 

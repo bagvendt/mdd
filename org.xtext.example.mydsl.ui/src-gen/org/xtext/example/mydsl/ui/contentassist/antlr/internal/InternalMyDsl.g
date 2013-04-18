@@ -1145,7 +1145,7 @@ rule__Intent__Group_4__4__Impl
 :
 (
 { before(grammarAccess.getIntentAccess().getGroup_4_4()); }
-(rule__Intent__Group_4_4__0)
+(rule__Intent__Group_4_4__0)?
 { after(grammarAccess.getIntentAccess().getGroup_4_4()); }
 )
 
@@ -2085,9 +2085,9 @@ rule__Intent__Group_4_5_3__0__Impl
 :
 (
 { before(grammarAccess.getIntentAccess().getCommaKeyword_4_5_3_0()); }
-
+(
 	',' 
-
+)?
 { after(grammarAccess.getIntentAccess().getCommaKeyword_4_5_3_0()); }
 )
 
@@ -2310,9 +2310,9 @@ rule__Intent__Group_4_6_3__0__Impl
 :
 (
 { before(grammarAccess.getIntentAccess().getCommaKeyword_4_6_3_0()); }
-
+(
 	',' 
-
+)?
 { after(grammarAccess.getIntentAccess().getCommaKeyword_4_6_3_0()); }
 )
 
