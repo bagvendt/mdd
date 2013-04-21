@@ -3,61 +3,42 @@
  */
 package dk.autointents.m2m;
 
-import java.io.IOException;
-import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-
 import org.osgi.framework.Bundle;
 import org.xtext.example.mydsl.MyDslStandaloneSetup;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.*;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.core.IImportDeclaration;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
-import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CatchClause;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.core.dom.Expression;
-import org.eclipse.jdt.core.dom.ExpressionStatement;
-import org.eclipse.jdt.core.dom.InfixExpression;
+import org.eclipse.jdt.core.dom.ImportDeclaration;
+import org.eclipse.jdt.core.dom.LineComment;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.eclipse.jdt.core.dom.MethodRefParameter;
-import org.eclipse.jdt.core.dom.Name;
 import org.eclipse.jdt.core.dom.QualifiedName;
-import org.eclipse.jdt.core.dom.QualifiedType;
 import org.eclipse.jdt.core.dom.SimpleName;
+import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
 import org.eclipse.jdt.core.dom.StringLiteral;
 import org.eclipse.jdt.core.dom.TryStatement;
-import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
 import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
-import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.TextEdit;
-import org.eclipse.ui.*;
-import org.eclipse.ui.internal.Model;
+import org.eclipse.text.edits.UndoEdit;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
@@ -128,13 +109,16 @@ public class MainDriver {
 		return internalHelper;
 	}
 
-	public boolean insertIntent(String intentName, ICompilationUnit cu, boolean generateExeptions)
-			throws Exception {
+	public boolean insertIntent(String intentName, ICompilationUnit cu,
+			boolean generateExeptions) throws Exception {
 		IntentDSL.Intent intent = internalHelper.getIntentByName(intentName);
 		ASTParser parser = ASTParser.newParser(AST.JLS4);
 		parser.setSource(cu);
 		parser.setResolveBindings(false);
 		CompilationUnit astRoot = (CompilationUnit) parser.createAST(null);
+
+		astRoot.recordModifications();
+
 		AST ast = astRoot.getAST();
 		// create the descriptive ast rewriter
 		ASTRewrite rewrite = ASTRewrite.create(ast);
@@ -157,7 +141,7 @@ public class MainDriver {
 			return false;
 		}
 
-		List<Statement> statements = new ArrayList<Statement>();
+		List<ASTNode> statements = new ArrayList<ASTNode>();
 
 		Block block = methodDecl.getBody();
 
@@ -196,15 +180,21 @@ public class MainDriver {
 
 			statements.add(categoryState);
 		}
-		// i.setData(URI);
+		// i.setData(Url.Parse(URI));
 		String dataFromModel = intent.getDataURI();
 		if (dataFromModel != null) {
 			StringLiteral data = ast.newStringLiteral();
 			data.setLiteralValue(dataFromModel.toString());
+			
+			MethodInvocation parseMeth = ast.newMethodInvocation();
+			parseMeth.setExpression(ast.newSimpleName("Uri"));
+			parseMeth.setName(ast.newSimpleName("parse"));
+			parseMeth.arguments().add(data);
+			
 			MethodInvocation dataMeth = ast.newMethodInvocation();
 			dataMeth.setExpression(intentVariableName);
 			dataMeth.setName(ast.newSimpleName("setData"));
-			dataMeth.arguments().add(data);
+			dataMeth.arguments().add(parseMeth);
 			Statement dataState = ast.newExpressionStatement(dataMeth);
 			statements.add(dataState);
 		}
@@ -251,7 +241,8 @@ public class MainDriver {
 						.newExpressionStatement(startActivityMeth);
 				statements.add(startActivityStatement);
 			} else {
-				// startActivity(i);
+				
+				// startActivityForResult(i);
 				SimpleName expression = ast.newSimpleName("i");
 				SimpleName expression1 = ast.newSimpleName("REQUEST_CODE");
 
@@ -263,49 +254,103 @@ public class MainDriver {
 				Statement startActivityStatement = ast
 						.newExpressionStatement(startActivityMeth);
 				statements.add(startActivityStatement);
-
 			}
 		}
 
+		ListRewrite lrw = rewrite.getListRewrite(astRoot,
+				CompilationUnit.IMPORTS_PROPERTY);
+		
 		if (generateExeptions) {
 			Block tryBlock = ast.newBlock();
 			Block catchBlock = ast.newBlock();
 
-			for (Statement statement : statements) {
+			for (ASTNode statement : statements) {
 				tryBlock.statements().add(statement);
 			}
 
 			TryStatement trystatement = ast.newTryStatement();
-			
+
 			CatchClause catchclause = ast.newCatchClause();
 
-			StringLiteral exeptionMessage = ast.newStringLiteral();
-			exeptionMessage.setLiteralValue("We could find a app that could open this! Try find one in the Play Store");
+			ASTNode catchStatement = rewrite
+					.createStringPlaceholder(
+							"Toast.makeText(this.getBaseContext(), \"You dont have the nessesary app. Please go to the Play Store and find one.\", Toast.LENGTH_SHORT).show();",
+							ASTNode.EMPTY_STATEMENT);
 
-			//Toast.makeText(app.getBaseContext(), MESSAGE, Toast.LENGTH_SHORT).show();
-			QualifiedName var1 = ast.newQualifiedName(ast.newSimpleName("app"), ast.newSimpleName("getBaseContext"));
-			
-			MethodInvocation startActivityMeth = ast.newMethodInvocation();
-			startActivityMeth.setExpression(ast.newQualifiedName(ast.newSimpleName("Toast"), ast.newSimpleName("makeText")));
-			startActivityMeth.arguments().add(var1);
-			Statement catchbody = ast.newExpressionStatement(startActivityMeth);
-			
-			catchBlock.statements().add(catchbody);
-			
+			catchBlock.statements().add(catchStatement);
+
 			catchclause.setBody(catchBlock);
+
+			SingleVariableDeclaration exceptionVar = ast.newSingleVariableDeclaration();
+			exceptionVar.setName(ast.newSimpleName("exception"));
+			exceptionVar.setType(ast.newSimpleType(ast.newSimpleName("Exception")));
+			
+			catchclause.setException(exceptionVar);
 			
 			trystatement.catchClauses().add(catchclause);
 			trystatement.setBody(tryBlock);
-			
+
+			ASTNode firstComment = rewrite.createStringPlaceholder(
+					"//Start of \"" + intentName + "\"",
+					ASTNode.EMPTY_STATEMENT);
+			listRewrite.insertLast(firstComment, null);
+
 			listRewrite.insertLast(trystatement, null);
-			// Toast.makeText(app.getBaseContext(),(String)data.result,
-			// Toast.LENGTH_SHORT).show();
+
+			ASTNode lastComment = rewrite.createStringPlaceholder("//End of \""
+					+ intentName + "\"", ASTNode.EMPTY_STATEMENT);
+			listRewrite.insertLast(lastComment, null);
+			
+			IImportDeclaration haveToastImport = cu.getImport("android.widget.Toast");
+			if (!haveToastImport.exists()) {
+				// android.widget.Toast
+				ImportDeclaration toastImport = ast.newImportDeclaration();
+				toastImport.setName(ast.newName(new String[] { "android", "widget",
+						"Toast" }));
+
+				lrw.insertLast(toastImport, null);
+			}
+
+
 		} else {
-			for (Statement statement : statements) {
+
+			ASTNode firstComment = rewrite.createStringPlaceholder(
+					"//Start of \"" + intentName + "\"",
+					ASTNode.EMPTY_STATEMENT);
+			listRewrite.insertLast(firstComment, null);
+
+			for (ASTNode statement : statements) {
 				listRewrite.insertLast(statement, null);
 			}
 
+			ASTNode lastComment = rewrite.createStringPlaceholder("//End of \""
+					+ intentName + "\"", ASTNode.EMPTY_STATEMENT);
+			listRewrite.insertLast(lastComment, null);
+
 		}
+
+		IImportDeclaration haveImport = cu.getImport("android.content.Intent");
+		
+		if (!haveImport.exists()) {
+			// android.content.Intent
+			ImportDeclaration intentImport = ast.newImportDeclaration();
+			intentImport.setName(ast.newName(new String[] { "android", "content",
+					"Intent" }));
+
+			lrw.insertLast(intentImport, null);
+		}
+		
+		IImportDeclaration haveURIImport = cu.getImport("android.net.Uri");
+		
+		if (!haveURIImport.exists() && intent.getDataURI() != null) {
+			// android.content.Intent
+			ImportDeclaration intentImport = ast.newImportDeclaration();
+			intentImport.setName(ast.newName(new String[] { "android", "net",
+					"Uri" }));
+
+			lrw.insertLast(intentImport, null);
+		}
+
 
 		// evaluate the text edits corresponding to the described changes. AST
 		// and CU still unmodified.

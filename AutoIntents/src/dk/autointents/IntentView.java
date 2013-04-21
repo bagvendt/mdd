@@ -7,6 +7,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
@@ -43,10 +46,7 @@ public class IntentView extends ViewPart {
 	 */
 	public static final String ID = "dk.autointents.IntentView";
 
-	private boolean _generateExeptions;
 	private TreeViewer viewer;
-	private DrillDownAdapter drillDownAdapter;
-	private Action action1;
 	private Button button1;
 	private Action doubleClickAction;
 	ModelHelper modelHelper;
@@ -207,13 +207,25 @@ public class IntentView extends ViewPart {
 	 * it.
 	 */
 	public void createPartControl(Composite parent) {
-		button1 = new Button(parent, 1);
-		viewer = new TreeViewer(parent);
-		drillDownAdapter = new DrillDownAdapter(viewer);
+
+		GridData parentData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		parent.setLayout(new GridLayout(1, false));
+		parent.setLayoutData(parentData);
+
+	    button1 = new Button(parent, SWT.CHECK);
+		button1.setText("Generate Exceptions");
+	    button1.setLayoutData(new GridData(SWT.FILL, GridData.CENTER, true, true));
+	
+		Composite tableViewerComposite = new Composite(parent, SWT.BORDER);
+	    tableViewerComposite.setLayout(new GridLayout(1, false));
+	    tableViewerComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		
+		viewer = new TreeViewer(tableViewerComposite);
 		viewer.setContentProvider(new ViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
 		viewer.setSorter(new NameSorter());
 		viewer.setInput(getViewSite());
+		viewer.expandAll();
 
 		// Create the help context id for the viewer's control
 		PlatformUI.getWorkbench().getHelpSystem()
@@ -221,37 +233,9 @@ public class IntentView extends ViewPart {
 		makeActions();
 		// hookContextMenu();
 		hookDoubleClickAction();
-		contributeToActionBars();
-	}
-
-	private void contributeToActionBars() {
-		IActionBars bars = getViewSite().getActionBars();
-		fillLocalPullDown(bars.getMenuManager());
-		fillLocalToolBar(bars.getToolBarManager());
-	}
-
-	private void fillLocalPullDown(IMenuManager manager) {
-		manager.add(action1);
-	}
-
-	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(action1);
-		drillDownAdapter.addNavigationActions(manager);
 	}
 
 	private void makeActions() {
-		action1 = new Action() {
-			public void run() {
-				_generateExeptions = !_generateExeptions;
-				action1.setChecked(_generateExeptions);
-			}
-		};
-		action1.setText("Generate exeptions");
-		action1.setToolTipText("Click here to generate expetions with your intents code");
-		
-		action1.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
-				.getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-
 		doubleClickAction = new Action() {
 			public void run() {
 
@@ -292,7 +276,8 @@ public class IntentView extends ViewPart {
 		if (elem instanceof ICompilationUnit) {
 			ICompilationUnit cu = (ICompilationUnit) elem;
 			try {
-				boolean result = mainDriver.insertIntent(intentName, cu, _generateExeptions);
+				boolean result = mainDriver.insertIntent(intentName, cu,
+						button1.getSelection());
 
 				if (!result) {
 					showMessage("Invalid state of text editor. Make sure a valid Android Project is active");
