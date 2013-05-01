@@ -204,13 +204,22 @@ public interface IntentDSLPackage extends EPackage {
 	int INTENT__META_CATEGORY = NAMED_INSTANCE_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Permission</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTENT__PERMISSION = NAMED_INSTANCE_FEATURE_COUNT + 7;
+
+	/**
 	 * The number of structural features of the '<em>Intent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTENT_FEATURE_COUNT = NAMED_INSTANCE_FEATURE_COUNT + 7;
+	int INTENT_FEATURE_COUNT = NAMED_INSTANCE_FEATURE_COUNT + 8;
 
 	/**
 	 * The meta object id for the '{@link IntentDSL.impl.ExtraDataImpl <em>Extra Data</em>}' class.
@@ -332,6 +341,15 @@ public interface IntentDSLPackage extends EPackage {
 	int IMPLICIT_INTENT__META_CATEGORY = INTENT__META_CATEGORY;
 
 	/**
+	 * The feature id for the '<em><b>Permission</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IMPLICIT_INTENT__PERMISSION = INTENT__PERMISSION;
+
+	/**
 	 * The number of structural features of the '<em>Implicit Intent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -421,6 +439,15 @@ public interface IntentDSLPackage extends EPackage {
 	 * @ordered
 	 */
 	int BROAD_CAST_INTENT__META_CATEGORY = INTENT__META_CATEGORY;
+
+	/**
+	 * The feature id for the '<em><b>Permission</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BROAD_CAST_INTENT__PERMISSION = INTENT__PERMISSION;
 
 	/**
 	 * The number of structural features of the '<em>Broad Cast Intent</em>' class.
@@ -514,6 +541,15 @@ public interface IntentDSLPackage extends EPackage {
 	int EXPLICIT_INTENT__META_CATEGORY = INTENT__META_CATEGORY;
 
 	/**
+	 * The feature id for the '<em><b>Permission</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPLICIT_INTENT__PERMISSION = INTENT__PERMISSION;
+
+	/**
 	 * The number of structural features of the '<em>Explicit Intent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -603,6 +639,15 @@ public interface IntentDSLPackage extends EPackage {
 	 * @ordered
 	 */
 	int SERVICE_INTENT__META_CATEGORY = INTENT__META_CATEGORY;
+
+	/**
+	 * The feature id for the '<em><b>Permission</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_INTENT__PERMISSION = INTENT__PERMISSION;
 
 	/**
 	 * The number of structural features of the '<em>Service Intent</em>' class.
@@ -731,6 +776,17 @@ public interface IntentDSLPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getIntent_MetaCategory();
+
+	/**
+	 * Returns the meta object for the attribute '{@link IntentDSL.Intent#getPermission <em>Permission</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Permission</em>'.
+	 * @see IntentDSL.Intent#getPermission()
+	 * @see #getIntent()
+	 * @generated
+	 */
+	EAttribute getIntent_Permission();
 
 	/**
 	 * Returns the meta object for class '{@link IntentDSL.ExtraData <em>Extra Data</em>}'.
@@ -929,6 +985,14 @@ public interface IntentDSLPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute INTENT__META_CATEGORY = eINSTANCE.getIntent_MetaCategory();
+
+		/**
+		 * The meta object literal for the '<em><b>Permission</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INTENT__PERMISSION = eINSTANCE.getIntent_Permission();
 
 		/**
 		 * The meta object literal for the '{@link IntentDSL.impl.ExtraDataImpl <em>Extra Data</em>}' class.

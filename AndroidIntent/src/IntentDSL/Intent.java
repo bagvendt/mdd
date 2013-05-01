@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link IntentDSL.Intent#getReturnData <em>Return Data</em>}</li>
  *   <li>{@link IntentDSL.Intent#getType <em>Type</em>}</li>
  *   <li>{@link IntentDSL.Intent#getMetaCategory <em>Meta Category</em>}</li>
+ *   <li>{@link IntentDSL.Intent#getPermission <em>Permission</em>}</li>
  * </ul>
  * </p>
  *
@@ -190,5 +191,31 @@ public interface Intent extends NamedInstance {
 	 * @generated
 	 */
 	void setMetaCategory(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Permission</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Permission</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Permission</em>' attribute.
+	 * @see #setPermission(String)
+	 * @see IntentDSL.IntentDSLPackage#getIntent_Permission()
+	 * @model
+	 * @generated
+	 */
+	String getPermission();
+
+	/**
+	 * Sets the value of the '{@link IntentDSL.Intent#getPermission <em>Permission</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Permission</em>' attribute.
+	 * @see #getPermission()
+	 * @generated
+	 */
+	void setPermission(String value);
 
 } // Intent

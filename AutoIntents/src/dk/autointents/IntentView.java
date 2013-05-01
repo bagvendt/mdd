@@ -1,10 +1,14 @@
 package dk.autointents;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.part.*;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FormLayout;
@@ -12,13 +16,29 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.jface.action.*;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.*;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.ViewPart;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.ui.JavaUI;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+
 import IntentDSL.Intent;
 
 import dk.autointents.m2m.MainDriver;
@@ -212,14 +232,16 @@ public class IntentView extends ViewPart {
 		parent.setLayout(new GridLayout(1, false));
 		parent.setLayoutData(parentData);
 
-	    button1 = new Button(parent, SWT.CHECK);
+		button1 = new Button(parent, SWT.CHECK);
 		button1.setText("Generate Exceptions");
-	    button1.setLayoutData(new GridData(SWT.FILL, GridData.CENTER, true, true));
-	
+		button1.setLayoutData(new GridData(SWT.FILL, GridData.CENTER, true,
+				true));
+
 		Composite tableViewerComposite = new Composite(parent, SWT.BORDER);
-	    tableViewerComposite.setLayout(new GridLayout(1, false));
-	    tableViewerComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		
+		tableViewerComposite.setLayout(new GridLayout(1, false));
+		tableViewerComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL,
+				true, true));
+
 		viewer = new TreeViewer(tableViewerComposite);
 		viewer.setContentProvider(new ViewContentProvider());
 		viewer.setLabelProvider(new ViewLabelProvider());
@@ -242,7 +264,7 @@ public class IntentView extends ViewPart {
 				ISelection selection = viewer.getSelection();
 				Object obj = ((IStructuredSelection) selection)
 						.getFirstElement();
-				test(obj.toString());
+				insertIntent(obj.toString());
 			}
 		};
 	}
@@ -267,17 +289,22 @@ public class IntentView extends ViewPart {
 		viewer.getControl().setFocus();
 	}
 
-	private void test(String intentName) {
+	private void insertIntent(String intentName) {
 		IWorkbenchPage page = PlatformUI.getWorkbench()
 				.getActiveWorkbenchWindow().getActivePage();
 		IEditorPart editor = page.getActiveEditor();
 		IJavaElement elem = JavaUI.getEditorInputJavaElement(editor
 				.getEditorInput());
+
+		IEditorPart editorPart = getSite().getWorkbenchWindow().getActivePage()
+				.getActiveEditor();
+
+		
 		if (elem instanceof ICompilationUnit) {
 			ICompilationUnit cu = (ICompilationUnit) elem;
 			try {
 				boolean result = mainDriver.insertIntent(intentName, cu,
-						button1.getSelection());
+						button1.getSelection(), (IEditorPart)editor);
 
 				if (!result) {
 					showMessage("Invalid state of text editor. Make sure a valid Android Project is active");

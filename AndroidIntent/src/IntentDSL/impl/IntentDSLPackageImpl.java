@@ -249,6 +249,15 @@ public class IntentDSLPackageImpl extends EPackageImpl implements IntentDSLPacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getIntent_Permission() {
+		return (EAttribute)intentEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getExtraData() {
 		return extraDataEClass;
 	}
@@ -364,6 +373,7 @@ public class IntentDSLPackageImpl extends EPackageImpl implements IntentDSLPacka
 		createEReference(intentEClass, INTENT__RETURN_DATA);
 		createEAttribute(intentEClass, INTENT__TYPE);
 		createEAttribute(intentEClass, INTENT__META_CATEGORY);
+		createEAttribute(intentEClass, INTENT__PERMISSION);
 
 		extraDataEClass = createEClass(EXTRA_DATA);
 		createEAttribute(extraDataEClass, EXTRA_DATA__TYPE);
@@ -431,6 +441,7 @@ public class IntentDSLPackageImpl extends EPackageImpl implements IntentDSLPacka
 		initEReference(getIntent_ReturnData(), this.getExtraData(), null, "returnData", null, 0, -1, Intent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIntent_Type(), ecorePackage.getEString(), "type", null, 0, 1, Intent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getIntent_MetaCategory(), ecorePackage.getEString(), "metaCategory", null, 0, 1, Intent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getIntent_Permission(), ecorePackage.getEString(), "permission", null, 0, 1, Intent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(extraDataEClass, ExtraData.class, "ExtraData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getExtraData_Type(), this.getSimpleTypeEnum(), "type", null, 0, 1, ExtraData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

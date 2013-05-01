@@ -39,6 +39,10 @@
         <element xmi:type="ecore:EAttribute" href="Intent.ecore#//Intent/type"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Xpj-0ZYZEeKk6ZoS27DtXA"/>
       </children>
+      <children xmi:type="notation:Node" xmi:id="__5dwIK2lEeKCIK0iJcKM5g" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Intent.ecore#//Intent/permission"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="__5dwIa2lEeKCIK0iJcKM5g"/>
+      </children>
       <styles xmi:type="notation:DrawerStyle" xmi:id="_-wIekZYBEeKk6ZoS27DtXA"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_-wIekpYBEeKk6ZoS27DtXA"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_-wIek5YBEeKk6ZoS27DtXA"/>

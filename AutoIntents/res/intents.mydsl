@@ -3,6 +3,7 @@ Model= [{ Type :'ImplicitIntent',
 	Action: "android.intent.action.VIEW",
 	Meta-Category: "Internet",
 	DataURI: "YOUR URL GOES HERE",
+	Permission: "android.permission.INTERNET",
 	DataExtra: [],
 	ReturnData: []
 	},

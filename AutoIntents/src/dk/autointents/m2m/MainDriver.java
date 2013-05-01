@@ -3,11 +3,29 @@
  */
 package dk.autointents.m2m;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.osgi.framework.Bundle;
+import org.w3c.dom.Attr;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xtext.example.mydsl.MyDslStandaloneSetup;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -22,10 +40,8 @@ import org.eclipse.jdt.core.dom.CatchClause;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ImportDeclaration;
-import org.eclipse.jdt.core.dom.LineComment;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.MethodInvocation;
-import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.Statement;
@@ -38,7 +54,8 @@ import org.eclipse.jdt.core.dom.rewrite.ASTRewrite;
 import org.eclipse.jdt.core.dom.rewrite.ListRewrite;
 import org.eclipse.jface.text.Document;
 import org.eclipse.text.edits.TextEdit;
-import org.eclipse.text.edits.UndoEdit;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
@@ -64,6 +81,7 @@ public class MainDriver {
 
 	ModelHelper internalHelper = null;
 	ReferencesHelper ref_help;
+	private IEditorPart _editorPart;
 
 	public ModelHelper LoadDSL() {
 		IntentDSLPackage.eINSTANCE.eClass();
@@ -110,8 +128,16 @@ public class MainDriver {
 	}
 
 	public boolean insertIntent(String intentName, ICompilationUnit cu,
-			boolean generateExeptions) throws Exception {
+			boolean generateExeptions, IEditorPart editorPart) throws Exception {
+
+		_editorPart = editorPart;
+
 		IntentDSL.Intent intent = internalHelper.getIntentByName(intentName);
+
+		if (intent.getPermission() != null) {
+			InsertPermission(intent.getPermission());
+		}
+
 		ASTParser parser = ASTParser.newParser(AST.JLS4);
 		parser.setSource(cu);
 		parser.setResolveBindings(false);
@@ -153,8 +179,18 @@ public class MainDriver {
 		StringLiteral action = ast.newStringLiteral();
 		action.setLiteralValue(intent.getAction());
 
+		String intentVariable = "";
+		
+		String[] nameArray = intent.getName().split(" ");
+		
+	    for (String word : nameArray) {
+			
+	    	intentVariable += word.toLowerCase().toCharArray()[0];
+		}
+	    intentVariable += "Intent";
+		
 		VariableDeclarationFragment vdf = ast.newVariableDeclarationFragment();
-		vdf.setName(ast.newSimpleName("i"));
+		vdf.setName(ast.newSimpleName(intentVariable));
 		VariableDeclarationStatement vds = ast
 				.newVariableDeclarationStatement(vdf);
 		vds.setType(ast.newSimpleType(ast.newSimpleName("Intent")));
@@ -165,7 +201,7 @@ public class MainDriver {
 
 		statements.add(vds);
 
-		SimpleName intentVariableName = ast.newSimpleName("i");
+		SimpleName intentVariableName = ast.newSimpleName(intentVariable);
 
 		// i.setCategory(CATEGORY)
 		String categoryFromModel = intent.getCategory();
@@ -185,12 +221,12 @@ public class MainDriver {
 		if (dataFromModel != null) {
 			StringLiteral data = ast.newStringLiteral();
 			data.setLiteralValue(dataFromModel.toString());
-			
+
 			MethodInvocation parseMeth = ast.newMethodInvocation();
 			parseMeth.setExpression(ast.newSimpleName("Uri"));
 			parseMeth.setName(ast.newSimpleName("parse"));
 			parseMeth.arguments().add(data);
-			
+
 			MethodInvocation dataMeth = ast.newMethodInvocation();
 			dataMeth.setExpression(intentVariableName);
 			dataMeth.setName(ast.newSimpleName("setData"));
@@ -209,7 +245,7 @@ public class MainDriver {
 					.toString());
 
 			MethodInvocation extraMeth = ast.newMethodInvocation();
-			SimpleName intentVariableName1 = ast.newSimpleName("i");
+			SimpleName intentVariableName1 = ast.newSimpleName(intentVariable);
 			extraMeth.setExpression(intentVariableName1);
 			extraMeth.setName(ast.newSimpleName("putExtra"));
 			extraMeth.arguments().add(extraName);
@@ -220,7 +256,7 @@ public class MainDriver {
 
 		if (intent instanceof BroadCastIntent) {
 			// startActivity(i);
-			SimpleName expression = ast.newSimpleName("i");
+			SimpleName expression = ast.newSimpleName(intentVariable);
 
 			MethodInvocation startActivityMeth = ast.newMethodInvocation();
 			startActivityMeth.setName(ast.newSimpleName("sendBroadcast"));
@@ -232,7 +268,7 @@ public class MainDriver {
 
 			if (intent.getReturnData().isEmpty()) {
 				// startActivity(i);
-				SimpleName expression = ast.newSimpleName("i");
+				SimpleName expression = ast.newSimpleName(intentVariable);
 
 				MethodInvocation startActivityMeth = ast.newMethodInvocation();
 				startActivityMeth.setName(ast.newSimpleName("startActivity"));
@@ -241,9 +277,9 @@ public class MainDriver {
 						.newExpressionStatement(startActivityMeth);
 				statements.add(startActivityStatement);
 			} else {
-				
+
 				// startActivityForResult(i);
-				SimpleName expression = ast.newSimpleName("i");
+				SimpleName expression = ast.newSimpleName(intentVariable);
 				SimpleName expression1 = ast.newSimpleName("REQUEST_CODE");
 
 				MethodInvocation startActivityMeth = ast.newMethodInvocation();
@@ -259,7 +295,7 @@ public class MainDriver {
 
 		ListRewrite lrw = rewrite.getListRewrite(astRoot,
 				CompilationUnit.IMPORTS_PROPERTY);
-		
+
 		if (generateExeptions) {
 			Block tryBlock = ast.newBlock();
 			Block catchBlock = ast.newBlock();
@@ -281,12 +317,14 @@ public class MainDriver {
 
 			catchclause.setBody(catchBlock);
 
-			SingleVariableDeclaration exceptionVar = ast.newSingleVariableDeclaration();
+			SingleVariableDeclaration exceptionVar = ast
+					.newSingleVariableDeclaration();
 			exceptionVar.setName(ast.newSimpleName("exception"));
-			exceptionVar.setType(ast.newSimpleType(ast.newSimpleName("Exception")));
-			
+			exceptionVar.setType(ast.newSimpleType(ast
+					.newSimpleName("Exception")));
+
 			catchclause.setException(exceptionVar);
-			
+
 			trystatement.catchClauses().add(catchclause);
 			trystatement.setBody(tryBlock);
 
@@ -300,17 +338,17 @@ public class MainDriver {
 			ASTNode lastComment = rewrite.createStringPlaceholder("//End of \""
 					+ intentName + "\"", ASTNode.EMPTY_STATEMENT);
 			listRewrite.insertLast(lastComment, null);
-			
-			IImportDeclaration haveToastImport = cu.getImport("android.widget.Toast");
+
+			IImportDeclaration haveToastImport = cu
+					.getImport("android.widget.Toast");
 			if (!haveToastImport.exists()) {
 				// android.widget.Toast
 				ImportDeclaration toastImport = ast.newImportDeclaration();
-				toastImport.setName(ast.newName(new String[] { "android", "widget",
-						"Toast" }));
+				toastImport.setName(ast.newName(new String[] { "android",
+						"widget", "Toast" }));
 
 				lrw.insertLast(toastImport, null);
 			}
-
 
 		} else {
 
@@ -330,18 +368,18 @@ public class MainDriver {
 		}
 
 		IImportDeclaration haveImport = cu.getImport("android.content.Intent");
-		
+
 		if (!haveImport.exists()) {
 			// android.content.Intent
 			ImportDeclaration intentImport = ast.newImportDeclaration();
-			intentImport.setName(ast.newName(new String[] { "android", "content",
-					"Intent" }));
+			intentImport.setName(ast.newName(new String[] { "android",
+					"content", "Intent" }));
 
 			lrw.insertLast(intentImport, null);
 		}
-		
+
 		IImportDeclaration haveURIImport = cu.getImport("android.net.Uri");
-		
+
 		if (!haveURIImport.exists() && intent.getDataURI() != null) {
 			// android.content.Intent
 			ImportDeclaration intentImport = ast.newImportDeclaration();
@@ -350,7 +388,6 @@ public class MainDriver {
 
 			lrw.insertLast(intentImport, null);
 		}
-
 
 		// evaluate the text edits corresponding to the described changes. AST
 		// and CU still unmodified.
@@ -362,6 +399,98 @@ public class MainDriver {
 		cu.getBuffer().setContents(document.get());
 
 		return true;
+	}
+
+	private void InsertPermission(String permission) {
+
+		IFile manifest = null;
+
+		if (_editorPart != null) {
+			IFileEditorInput input = (IFileEditorInput) _editorPart
+					.getEditorInput();
+			IFile file = input.getFile();
+			IProject activeProject = file.getProject();
+
+			manifest = activeProject.getFile("AndroidManifest.xml");
+		}
+
+		if (manifest == null) {
+			// ERROR
+		}
+
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+		factory.setIgnoringComments(true);
+		factory.setIgnoringElementContentWhitespace(true);
+		factory.setValidating(false);
+
+		DocumentBuilder builder = null;
+		org.w3c.dom.Document xml = null;
+
+		try {
+			builder = factory.newDocumentBuilder();
+
+		} catch (ParserConfigurationException exception) {
+			exception.printStackTrace();
+		}
+
+		try {
+			xml = builder.parse(manifest.getContents());
+
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+
+		
+		NodeList nodes = xml.getElementsByTagName("uses-permission");
+
+		Boolean permissionExists = false;
+
+		for (int i = 0; i < nodes.getLength(); i++) {
+			Node childNode = nodes.item(i);
+
+			String name = childNode.getNodeName();
+
+			if (name.equals("uses-permission")) {
+				
+				String currentNodeName = childNode.getAttributes().getNamedItem("android:name").getNodeValue();
+				
+				if (currentNodeName.equals(permission)) {
+					permissionExists = true;
+				}
+			}
+		}
+		
+		if (!permissionExists) {
+			Node newElement = xml.createElement("uses-permission");
+
+			Attr id = xml.createAttribute("android:name");
+			id.setValue(permission);
+			NamedNodeMap rootAttr = newElement.getAttributes();
+			rootAttr.setNamedItem(id);
+
+			nodes.item(0).getParentNode().insertBefore(newElement, nodes.item(0));
+			
+			TransformerFactory transformerFactory = TransformerFactory
+					.newInstance();
+			Transformer transformer = null;
+			try {
+				transformer = transformerFactory.newTransformer();
+			} catch (TransformerConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			DOMSource source = new DOMSource(xml);
+			StreamResult result = new StreamResult(new File(
+					manifest.getLocationURI()));
+			try {
+				transformer.transform(source, result);
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	/*

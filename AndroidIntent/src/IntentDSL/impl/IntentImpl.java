@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link IntentDSL.impl.IntentImpl#getReturnData <em>Return Data</em>}</li>
  *   <li>{@link IntentDSL.impl.IntentImpl#getType <em>Type</em>}</li>
  *   <li>{@link IntentDSL.impl.IntentImpl#getMetaCategory <em>Meta Category</em>}</li>
+ *   <li>{@link IntentDSL.impl.IntentImpl#getPermission <em>Permission</em>}</li>
  * </ul>
  * </p>
  *
@@ -161,6 +162,26 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 	 * @ordered
 	 */
 	protected String metaCategory = META_CATEGORY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getPermission() <em>Permission</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPermission()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PERMISSION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPermission() <em>Permission</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPermission()
+	 * @generated
+	 * @ordered
+	 */
+	protected String permission = PERMISSION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -315,6 +336,27 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getPermission() {
+		return permission;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPermission(String newPermission) {
+		String oldPermission = permission;
+		permission = newPermission;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, IntentDSLPackage.INTENT__PERMISSION, oldPermission, permission));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -348,6 +390,8 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 				return getType();
 			case IntentDSLPackage.INTENT__META_CATEGORY:
 				return getMetaCategory();
+			case IntentDSLPackage.INTENT__PERMISSION:
+				return getPermission();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -384,6 +428,9 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 			case IntentDSLPackage.INTENT__META_CATEGORY:
 				setMetaCategory((String)newValue);
 				return;
+			case IntentDSLPackage.INTENT__PERMISSION:
+				setPermission((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -417,6 +464,9 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 			case IntentDSLPackage.INTENT__META_CATEGORY:
 				setMetaCategory(META_CATEGORY_EDEFAULT);
 				return;
+			case IntentDSLPackage.INTENT__PERMISSION:
+				setPermission(PERMISSION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -443,6 +493,8 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 			case IntentDSLPackage.INTENT__META_CATEGORY:
 				return META_CATEGORY_EDEFAULT == null ? metaCategory != null : !META_CATEGORY_EDEFAULT.equals(metaCategory);
+			case IntentDSLPackage.INTENT__PERMISSION:
+				return PERMISSION_EDEFAULT == null ? permission != null : !PERMISSION_EDEFAULT.equals(permission);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -467,6 +519,8 @@ public abstract class IntentImpl extends NamedInstanceImpl implements Intent {
 		result.append(type);
 		result.append(", metaCategory: ");
 		result.append(metaCategory);
+		result.append(", permission: ");
+		result.append(permission);
 		result.append(')');
 		return result.toString();
 	}

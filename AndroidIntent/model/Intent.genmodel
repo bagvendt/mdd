@@ -27,6 +27,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Intent.ecore#//Intent/returnData"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//Intent/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//Intent/metaCategory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//Intent/permission"/>
     </genClasses>
     <genClasses ecoreClass="Intent.ecore#//ExtraData">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Intent.ecore#//ExtraData/type"/>

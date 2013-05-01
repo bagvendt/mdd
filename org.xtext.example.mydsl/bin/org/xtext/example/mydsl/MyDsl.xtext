@@ -21,6 +21,7 @@ Intent returns Intent:
 		('Category' ':' category=EString ',')?
 		('Meta-Category' ':' metaCategory=EString ',')
 		('DataURI' ':' dataURI=EString ',')?
+		('Permission' ':' permission=EString ',')?
 		('DataExtra' ':' '[' ( (",")? extraData+=ExtraData)* ']' ',')?
 		('ReturnData' ':' '[' ( (",")? returnData+=ExtraData)* ']' )?
 	);

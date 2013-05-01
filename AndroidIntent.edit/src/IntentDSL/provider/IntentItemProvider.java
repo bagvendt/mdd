@@ -68,6 +68,7 @@ public class IntentItemProvider
 			addCategoryPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
 			addMetaCategoryPropertyDescriptor(object);
+			addPermissionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -183,6 +184,28 @@ public class IntentItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Permission feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPermissionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Intent_permission_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Intent_permission_feature", "_UI_Intent_type"),
+				 IntentDSLPackage.Literals.INTENT__PERMISSION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -244,6 +267,7 @@ public class IntentItemProvider
 			case IntentDSLPackage.INTENT__CATEGORY:
 			case IntentDSLPackage.INTENT__TYPE:
 			case IntentDSLPackage.INTENT__META_CATEGORY:
+			case IntentDSLPackage.INTENT__PERMISSION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case IntentDSLPackage.INTENT__EXTRA_DATA:
