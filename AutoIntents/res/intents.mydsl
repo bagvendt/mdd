@@ -15,7 +15,7 @@ Model= [{ Type :'ImplicitIntent',
 	ReturnData: []
 	},
 	{ Type :'ImplicitIntent', 
-	Name : "Dail a phone number",
+	Name : "Dial a phone number",
 	Action: "android.intent.action.VIEW",
 	Meta-Category: "Phone",
 	DataURI: "YOUR PHONENUMBER GOES HERE (tel: + number)",

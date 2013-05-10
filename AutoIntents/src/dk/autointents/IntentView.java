@@ -182,7 +182,7 @@ public class IntentView extends ViewPart {
 		 */
 		private void initialize() {
 			mainDriver = new MainDriver();
-			modelHelper = mainDriver.NewLoadDSL();
+			modelHelper = mainDriver.loadDSL();
 			TreeParent root = new TreeParent("Intents");
 			for (String category : modelHelper.getCategories()) {
 				TreeParent catEl = new TreeParent(category);
