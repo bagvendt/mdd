@@ -40,7 +40,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//IntentModel:
-		//
 		//	{IntentModel} name="Model" "=" "[" "{" intents+=Intent "}" ("," "{" intents+=Intent "}")* "]";
 		public ParserRule getRule() { return rule; }
 
@@ -139,43 +138,42 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDataURIEStringParserRuleCall_4_4_2_0 = (RuleCall)cDataURIAssignment_4_4_2.eContents().get(0);
 		private final Keyword cCommaKeyword_4_4_3 = (Keyword)cGroup_4_4.eContents().get(3);
 		private final Group cGroup_4_5 = (Group)cGroup_4.eContents().get(5);
-		private final Keyword cDataExtraKeyword_4_5_0 = (Keyword)cGroup_4_5.eContents().get(0);
+		private final Keyword cPermissionKeyword_4_5_0 = (Keyword)cGroup_4_5.eContents().get(0);
 		private final Keyword cColonKeyword_4_5_1 = (Keyword)cGroup_4_5.eContents().get(1);
-		private final Keyword cLeftSquareBracketKeyword_4_5_2 = (Keyword)cGroup_4_5.eContents().get(2);
-		private final Group cGroup_4_5_3 = (Group)cGroup_4_5.eContents().get(3);
-		private final Keyword cCommaKeyword_4_5_3_0 = (Keyword)cGroup_4_5_3.eContents().get(0);
-		private final Assignment cExtraDataAssignment_4_5_3_1 = (Assignment)cGroup_4_5_3.eContents().get(1);
-		private final RuleCall cExtraDataExtraDataParserRuleCall_4_5_3_1_0 = (RuleCall)cExtraDataAssignment_4_5_3_1.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4_5_4 = (Keyword)cGroup_4_5.eContents().get(4);
-		private final Keyword cCommaKeyword_4_5_5 = (Keyword)cGroup_4_5.eContents().get(5);
+		private final Assignment cPermissionAssignment_4_5_2 = (Assignment)cGroup_4_5.eContents().get(2);
+		private final RuleCall cPermissionEStringParserRuleCall_4_5_2_0 = (RuleCall)cPermissionAssignment_4_5_2.eContents().get(0);
+		private final Keyword cCommaKeyword_4_5_3 = (Keyword)cGroup_4_5.eContents().get(3);
 		private final Group cGroup_4_6 = (Group)cGroup_4.eContents().get(6);
-		private final Keyword cReturnDataKeyword_4_6_0 = (Keyword)cGroup_4_6.eContents().get(0);
+		private final Keyword cDataExtraKeyword_4_6_0 = (Keyword)cGroup_4_6.eContents().get(0);
 		private final Keyword cColonKeyword_4_6_1 = (Keyword)cGroup_4_6.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_4_6_2 = (Keyword)cGroup_4_6.eContents().get(2);
 		private final Group cGroup_4_6_3 = (Group)cGroup_4_6.eContents().get(3);
 		private final Keyword cCommaKeyword_4_6_3_0 = (Keyword)cGroup_4_6_3.eContents().get(0);
-		private final Assignment cReturnDataAssignment_4_6_3_1 = (Assignment)cGroup_4_6_3.eContents().get(1);
-		private final RuleCall cReturnDataExtraDataParserRuleCall_4_6_3_1_0 = (RuleCall)cReturnDataAssignment_4_6_3_1.eContents().get(0);
+		private final Assignment cExtraDataAssignment_4_6_3_1 = (Assignment)cGroup_4_6_3.eContents().get(1);
+		private final RuleCall cExtraDataExtraDataParserRuleCall_4_6_3_1_0 = (RuleCall)cExtraDataAssignment_4_6_3_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_4_6_4 = (Keyword)cGroup_4_6.eContents().get(4);
+		private final Keyword cCommaKeyword_4_6_5 = (Keyword)cGroup_4_6.eContents().get(5);
+		private final Group cGroup_4_7 = (Group)cGroup_4.eContents().get(7);
+		private final Keyword cReturnDataKeyword_4_7_0 = (Keyword)cGroup_4_7.eContents().get(0);
+		private final Keyword cColonKeyword_4_7_1 = (Keyword)cGroup_4_7.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_4_7_2 = (Keyword)cGroup_4_7.eContents().get(2);
+		private final Group cGroup_4_7_3 = (Group)cGroup_4_7.eContents().get(3);
+		private final Keyword cCommaKeyword_4_7_3_0 = (Keyword)cGroup_4_7_3.eContents().get(0);
+		private final Assignment cReturnDataAssignment_4_7_3_1 = (Assignment)cGroup_4_7_3.eContents().get(1);
+		private final RuleCall cReturnDataExtraDataParserRuleCall_4_7_3_1_0 = (RuleCall)cReturnDataAssignment_4_7_3_1.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_7_4 = (Keyword)cGroup_4_7.eContents().get(4);
 		
 		//Intent:
-		//
 		//	"Type" ":" (ExplicitIntent | ImplicitIntent | BroadcastIntent | ServiceIntent) "," (("Name" ":" name=EString ",")
-		//
 		//	("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
-		//
-		//	",") ("DataURI" ":" dataURI=EString ",")? ("DataExtra" ":" "[" (","? extraData+=ExtraData)* "]" ",")? ("ReturnData"
-		//
-		//	":" "[" (","? returnData+=ExtraData)* "]")?);
+		//	",") ("DataURI" ":" dataURI=EString ",")? ("Permission" ":" permission=EString ",")? ("DataExtra" ":" "[" (","?
+		//	extraData+=ExtraData)* "]" ",")? ("ReturnData" ":" "[" (","? returnData+=ExtraData)* "]")?);
 		public ParserRule getRule() { return rule; }
 
 		//"Type" ":" (ExplicitIntent | ImplicitIntent | BroadcastIntent | ServiceIntent) "," (("Name" ":" name=EString ",")
-		//
-		//("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
-		//
-		//",") ("DataURI" ":" dataURI=EString ",")? ("DataExtra" ":" "[" (","? extraData+=ExtraData)* "]" ",")? ("ReturnData"
-		//
-		//":" "[" (","? returnData+=ExtraData)* "]")?)
+		//("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString ",")
+		//("DataURI" ":" dataURI=EString ",")? ("Permission" ":" permission=EString ",")? ("DataExtra" ":" "[" (","?
+		//extraData+=ExtraData)* "]" ",")? ("ReturnData" ":" "[" (","? returnData+=ExtraData)* "]")?)
 		public Group getGroup() { return cGroup; }
 
 		//"Type"
@@ -203,10 +201,8 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
 
 		//("Name" ":" name=EString ",") ("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category"
-		//
-		//":" metaCategory=EString ",") ("DataURI" ":" dataURI=EString ",")? ("DataExtra" ":" "[" (","? extraData+=ExtraData)*
-		//
-		//"]" ",")? ("ReturnData" ":" "[" (","? returnData+=ExtraData)* "]")?
+		//":" metaCategory=EString ",") ("DataURI" ":" dataURI=EString ",")? ("Permission" ":" permission=EString ",")?
+		//("DataExtra" ":" "[" (","? extraData+=ExtraData)* "]" ",")? ("ReturnData" ":" "[" (","? returnData+=ExtraData)* "]")?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"Name" ":" name=EString ","
@@ -299,41 +295,29 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//","
 		public Keyword getCommaKeyword_4_4_3() { return cCommaKeyword_4_4_3; }
 
-		//("DataExtra" ":" "[" (","? extraData+=ExtraData)* "]" ",")?
+		//("Permission" ":" permission=EString ",")?
 		public Group getGroup_4_5() { return cGroup_4_5; }
 
-		//"DataExtra"
-		public Keyword getDataExtraKeyword_4_5_0() { return cDataExtraKeyword_4_5_0; }
+		//"Permission"
+		public Keyword getPermissionKeyword_4_5_0() { return cPermissionKeyword_4_5_0; }
 
 		//":"
 		public Keyword getColonKeyword_4_5_1() { return cColonKeyword_4_5_1; }
 
-		//"["
-		public Keyword getLeftSquareBracketKeyword_4_5_2() { return cLeftSquareBracketKeyword_4_5_2; }
+		//permission=EString
+		public Assignment getPermissionAssignment_4_5_2() { return cPermissionAssignment_4_5_2; }
 
-		//(","? extraData+=ExtraData)*
-		public Group getGroup_4_5_3() { return cGroup_4_5_3; }
-
-		//","?
-		public Keyword getCommaKeyword_4_5_3_0() { return cCommaKeyword_4_5_3_0; }
-
-		//extraData+=ExtraData
-		public Assignment getExtraDataAssignment_4_5_3_1() { return cExtraDataAssignment_4_5_3_1; }
-
-		//ExtraData
-		public RuleCall getExtraDataExtraDataParserRuleCall_4_5_3_1_0() { return cExtraDataExtraDataParserRuleCall_4_5_3_1_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_4_5_4() { return cRightSquareBracketKeyword_4_5_4; }
+		//EString
+		public RuleCall getPermissionEStringParserRuleCall_4_5_2_0() { return cPermissionEStringParserRuleCall_4_5_2_0; }
 
 		//","
-		public Keyword getCommaKeyword_4_5_5() { return cCommaKeyword_4_5_5; }
+		public Keyword getCommaKeyword_4_5_3() { return cCommaKeyword_4_5_3; }
 
-		//("ReturnData" ":" "[" (","? returnData+=ExtraData)* "]")?
+		//("DataExtra" ":" "[" (","? extraData+=ExtraData)* "]" ",")?
 		public Group getGroup_4_6() { return cGroup_4_6; }
 
-		//"ReturnData"
-		public Keyword getReturnDataKeyword_4_6_0() { return cReturnDataKeyword_4_6_0; }
+		//"DataExtra"
+		public Keyword getDataExtraKeyword_4_6_0() { return cDataExtraKeyword_4_6_0; }
 
 		//":"
 		public Keyword getColonKeyword_4_6_1() { return cColonKeyword_4_6_1; }
@@ -341,20 +325,50 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_4_6_2() { return cLeftSquareBracketKeyword_4_6_2; }
 
-		//(","? returnData+=ExtraData)*
+		//(","? extraData+=ExtraData)*
 		public Group getGroup_4_6_3() { return cGroup_4_6_3; }
 
 		//","?
 		public Keyword getCommaKeyword_4_6_3_0() { return cCommaKeyword_4_6_3_0; }
 
-		//returnData+=ExtraData
-		public Assignment getReturnDataAssignment_4_6_3_1() { return cReturnDataAssignment_4_6_3_1; }
+		//extraData+=ExtraData
+		public Assignment getExtraDataAssignment_4_6_3_1() { return cExtraDataAssignment_4_6_3_1; }
 
 		//ExtraData
-		public RuleCall getReturnDataExtraDataParserRuleCall_4_6_3_1_0() { return cReturnDataExtraDataParserRuleCall_4_6_3_1_0; }
+		public RuleCall getExtraDataExtraDataParserRuleCall_4_6_3_1_0() { return cExtraDataExtraDataParserRuleCall_4_6_3_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_4_6_4() { return cRightSquareBracketKeyword_4_6_4; }
+
+		//","
+		public Keyword getCommaKeyword_4_6_5() { return cCommaKeyword_4_6_5; }
+
+		//("ReturnData" ":" "[" (","? returnData+=ExtraData)* "]")?
+		public Group getGroup_4_7() { return cGroup_4_7; }
+
+		//"ReturnData"
+		public Keyword getReturnDataKeyword_4_7_0() { return cReturnDataKeyword_4_7_0; }
+
+		//":"
+		public Keyword getColonKeyword_4_7_1() { return cColonKeyword_4_7_1; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_4_7_2() { return cLeftSquareBracketKeyword_4_7_2; }
+
+		//(","? returnData+=ExtraData)*
+		public Group getGroup_4_7_3() { return cGroup_4_7_3; }
+
+		//","?
+		public Keyword getCommaKeyword_4_7_3_0() { return cCommaKeyword_4_7_3_0; }
+
+		//returnData+=ExtraData
+		public Assignment getReturnDataAssignment_4_7_3_1() { return cReturnDataAssignment_4_7_3_1; }
+
+		//ExtraData
+		public RuleCall getReturnDataExtraDataParserRuleCall_4_7_3_1_0() { return cReturnDataExtraDataParserRuleCall_4_7_3_1_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_4_7_4() { return cRightSquareBracketKeyword_4_7_4; }
 	}
 
 	public class EStringElements extends AbstractParserRuleElementFinder {
@@ -364,7 +378,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//EString returns ecore::EString:
-		//
 		//	STRING | ID;
 		public ParserRule getRule() { return rule; }
 
@@ -397,7 +410,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ExtraData:
-		//
 		//	{ExtraData} "{" ("Name" ":" name=EString) "," ("Type" ":" type=SimpleTypeEnum) "}";
 		public ParserRule getRule() { return rule; }
 
@@ -454,7 +466,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cExplicitIntentKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//ExplicitIntent:
-		//
 		//	{ExplicitIntent} "\'ExplicitIntent\'";
 		public ParserRule getRule() { return rule; }
 
@@ -475,7 +486,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cImplicitIntentKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//ImplicitIntent:
-		//
 		//	{ImplicitIntent} "\'ImplicitIntent\'";
 		public ParserRule getRule() { return rule; }
 
@@ -496,7 +506,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cBroadcastIntentKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//BroadcastIntent returns BroadCastIntent:
-		//
 		//	{BroadCastIntent} "\'BroadcastIntent\'";
 		public ParserRule getRule() { return rule; }
 
@@ -517,7 +526,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cServiceIntentKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		
 		//ServiceIntent:
-		//
 		//	{ServiceIntent} "\'ServiceIntent\'";
 		public ParserRule getRule() { return rule; }
 
@@ -555,15 +563,12 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSTRINGStringKeyword_8_0 = (Keyword)cSTRINGEnumLiteralDeclaration_8.eContents().get(0);
 		
 		//// Just to make it easier for developers to chose a datatype (and reduce errors)
-		// enum SimpleTypeEnum:
-		//
+		//enum SimpleTypeEnum:
 		//	BOOLEAN="boolean" | BUNDLE="Bundle" | BYTE="byte" | DOUBLE="double" | FLOAT="float" | INT="integer" | LONG="long" |
-		//
 		//	SHORT="short" | STRING="String";
 		public EnumRule getRule() { return rule; }
 
 		//BOOLEAN="boolean" | BUNDLE="Bundle" | BYTE="byte" | DOUBLE="double" | FLOAT="float" | INT="integer" | LONG="long" |
-		//
 		//SHORT="short" | STRING="String"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
@@ -671,7 +676,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//IntentModel:
-	//
 	//	{IntentModel} name="Model" "=" "[" "{" intents+=Intent "}" ("," "{" intents+=Intent "}")* "]";
 	public IntentModelElements getIntentModelAccess() {
 		return (pIntentModel != null) ? pIntentModel : (pIntentModel = new IntentModelElements());
@@ -682,14 +686,10 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Intent:
-	//
 	//	"Type" ":" (ExplicitIntent | ImplicitIntent | BroadcastIntent | ServiceIntent) "," (("Name" ":" name=EString ",")
-	//
 	//	("Action" ":" action=EString ",") ("Category" ":" category=EString ",")? ("Meta-Category" ":" metaCategory=EString
-	//
-	//	",") ("DataURI" ":" dataURI=EString ",")? ("DataExtra" ":" "[" (","? extraData+=ExtraData)* "]" ",")? ("ReturnData"
-	//
-	//	":" "[" (","? returnData+=ExtraData)* "]")?);
+	//	",") ("DataURI" ":" dataURI=EString ",")? ("Permission" ":" permission=EString ",")? ("DataExtra" ":" "[" (","?
+	//	extraData+=ExtraData)* "]" ",")? ("ReturnData" ":" "[" (","? returnData+=ExtraData)* "]")?);
 	public IntentElements getIntentAccess() {
 		return (pIntent != null) ? pIntent : (pIntent = new IntentElements());
 	}
@@ -699,7 +699,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//EString returns ecore::EString:
-	//
 	//	STRING | ID;
 	public EStringElements getEStringAccess() {
 		return (pEString != null) ? pEString : (pEString = new EStringElements());
@@ -710,7 +709,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ExtraData:
-	//
 	//	{ExtraData} "{" ("Name" ":" name=EString) "," ("Type" ":" type=SimpleTypeEnum) "}";
 	public ExtraDataElements getExtraDataAccess() {
 		return (pExtraData != null) ? pExtraData : (pExtraData = new ExtraDataElements());
@@ -721,10 +719,8 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Just to make it easier for developers to chose a datatype (and reduce errors)
-	// enum SimpleTypeEnum:
-	//
+	//enum SimpleTypeEnum:
 	//	BOOLEAN="boolean" | BUNDLE="Bundle" | BYTE="byte" | DOUBLE="double" | FLOAT="float" | INT="integer" | LONG="long" |
-	//
 	//	SHORT="short" | STRING="String";
 	public SimpleTypeEnumElements getSimpleTypeEnumAccess() {
 		return (unknownRuleSimpleTypeEnum != null) ? unknownRuleSimpleTypeEnum : (unknownRuleSimpleTypeEnum = new SimpleTypeEnumElements());
@@ -735,7 +731,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ExplicitIntent:
-	//
 	//	{ExplicitIntent} "\'ExplicitIntent\'";
 	public ExplicitIntentElements getExplicitIntentAccess() {
 		return (pExplicitIntent != null) ? pExplicitIntent : (pExplicitIntent = new ExplicitIntentElements());
@@ -746,7 +741,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ImplicitIntent:
-	//
 	//	{ImplicitIntent} "\'ImplicitIntent\'";
 	public ImplicitIntentElements getImplicitIntentAccess() {
 		return (pImplicitIntent != null) ? pImplicitIntent : (pImplicitIntent = new ImplicitIntentElements());
@@ -757,7 +751,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//BroadcastIntent returns BroadCastIntent:
-	//
 	//	{BroadCastIntent} "\'BroadcastIntent\'";
 	public BroadcastIntentElements getBroadcastIntentAccess() {
 		return (pBroadcastIntent != null) ? pBroadcastIntent : (pBroadcastIntent = new BroadcastIntentElements());
@@ -768,7 +761,6 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ServiceIntent:
-	//
 	//	{ServiceIntent} "\'ServiceIntent\'";
 	public ServiceIntentElements getServiceIntentAccess() {
 		return (pServiceIntent != null) ? pServiceIntent : (pServiceIntent = new ServiceIntentElements());
@@ -779,51 +771,43 @@ public class MyDslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//terminal ID:
-	//
 	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
 	public TerminalRule getIDRule() {
 		return gaTerminals.getIDRule();
 	} 
 
 	//terminal INT returns ecore::EInt:
-	//
 	//	"0".."9"+;
 	public TerminalRule getINTRule() {
 		return gaTerminals.getINTRule();
 	} 
 
 	//terminal STRING:
-	//
 	//	"\"" ("\\" ("b" | "t" | "n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\""))* "\"" | "\'" ("\\" ("b" | "t" |
-	//
 	//	"n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\'"))* "\'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 
 
 	//terminal ML_COMMENT:
-	//
 	//	"/ *"->"* /";
 	public TerminalRule getML_COMMENTRule() {
 		return gaTerminals.getML_COMMENTRule();
 	} 
 
 	//terminal SL_COMMENT:
-	//
 	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
 	public TerminalRule getSL_COMMENTRule() {
 		return gaTerminals.getSL_COMMENTRule();
 	} 
 
 	//terminal WS:
-	//
 	//	(" " | "\t" | "\r" | "\n")+;
 	public TerminalRule getWSRule() {
 		return gaTerminals.getWSRule();
 	} 
 
 	//terminal ANY_OTHER:
-	//
 	//	.;
 	public TerminalRule getANY_OTHERRule() {
 		return gaTerminals.getANY_OTHERRule();
